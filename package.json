@@ -1,0 +1,24 @@
+{
+  "name": "spendapp",
+  "version": "1.0.0",
+  "description": "An App for personal finance tracking ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KostadinovK/SpendApp.git"
+  },
+  "author": "Kostadin Kostadinov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KostadinovK/SpendApp/issues"
+  },
+  "homepage": "https://github.com/KostadinovK/SpendApp#readme",
+  "dependencies": {
+    "handlebars": "^4.5.3",
+    "jquery": "^3.4.1",
+    "sammy": "^0.7.6"
+  }
+}
