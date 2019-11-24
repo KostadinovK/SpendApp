@@ -1,0 +1,11 @@
+.site-footer{
+    text-align: center;
+    color: var(--site-main-color);
+    padding: 0.5rem;
+    background: var(--site-second-color);
+}
+
+.site-footer p{
+    margin: 0;
+    font-size: 1.3rem;
+}
