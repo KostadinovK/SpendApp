@@ -3,8 +3,14 @@ const app = Sammy('#main', function(){
 
     this.get('#/home', (context) => 
     {
-        context.partial("../views/common/header.hbs");
-    })  
+        context.loadPartials({
+            header: './views/common/header.hbs',
+            footer: './views/common/footer.hbs'
+        }).then(function() {
+            this.partial('./views/home/cta.hbs');
+        });
+    });
+
 });
 
 (() => {
