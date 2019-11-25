@@ -1,0 +1,31 @@
+{{>header}}
+<form class="register-form" action="#/register" method="POST">
+    <h2>Register</h2>
+    <p class="username">
+        <label for="username"><i class="fas fa-user"></i></label>
+        <input type="text" name="username" placeholder="Username">
+    </p>
+    <p class="password">
+        <label for="password"><i class="fas fa-key"></i></label>
+        <input type="password" name="password" placeholder="Password">
+    </p>
+    <p class="confirm-password">
+        <label for="confirmPassword"><i class="fas fa-key"></i></label>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password">
+    </p>
+    <p class="budget">
+        <label for="budget"><i class="fas fa-money-bill-alt"></i></label>
+        <input type="number" name="budget" min="0" step="any" placeholder="Budget">
+    </p>
+    <p class="currency">
+        <label for="currency">Currency: </label>
+        <select name="currency" id="curr">
+            <option value="dollars">Dollar ($)</option>
+            <option value="euros">Euro (&euro;)</option>
+            <option value="levas">Lev (.lv)</option>
+        </select>
+    </p>
+    <p class="form-link">Already have an account? <a href="#/login">Login</a></p>
+    <input type="submit" value="Register">
+</form>
+{{>footer}}

@@ -1,3 +1,14 @@
+form{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+form h2{
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--site-main-color);
+}
+
 form .form-link a{
     margin-left: 1rem;
     text-decoration: none;
@@ -32,46 +43,86 @@ form input[type="submit"]:hover{
 }
 
 .login-form{
+    padding: 8rem 0rem;
+}
+
+.login-form,
+.register-form
+{
     width: 50%;
     margin: 0 auto;
-    padding: 8rem 0rem;
     margin-left: auto;
-    display: flex;
-    flex-wrap: wrap;
 }
 
-.login-form h2, p{
+.login-form h2,
+.login-form p,
+.register-form h2,
+.register-form p{
     flex: 1 1 100%;
     text-align: center;
-    margin-bottom: 1rem;
 }
 
-.login-form h2{
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: var(--site-main-color);
-}
 
-.login-form p{
+.login-form p,
+.register-form p{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
-.login-form i{
+.login-form i,
+.register-form i
+{
     font-size: 1.5rem;
     color: var(--site-main-color);
 }
 
-.login-form input{
+.login-form input,
+.register-form input
+{
     padding: 0.5rem;
     margin-left: 1rem;
     flex: 0 0 30%;
 }
 
-.login-form input[type="submit"]{
+.login-form input[type="submit"],
+.register-form input[type="submit"]
+{
     flex: 0 0 40%;
     margin: 0 auto;
     margin-top: 2rem;
     padding: 0.8rem;
+}
+
+.register-form{
+    padding: 6rem 0rem;
+}
+
+.register-form .username,
+.register-form .confirm-password{
+    margin-bottom: 2rem;
+}
+
+.register-form .currency{
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.register-form .currency label{
+    color: var(--site-main-color);
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-right: 2rem;
+}
+
+.register-form select{
+    flex: 0 0 20%;
+    border-radius: 10px;
+    outline: none;
+    padding: 0.4rem;
+}
+
+.register-form option{
+    padding: 1.4rem;
 }
