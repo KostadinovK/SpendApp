@@ -1,0 +1,15 @@
+{{>header}}
+<form class="login-form" action="#/login" method="POST">
+    <h2>Login</h2>
+    <p class="username">
+        <label for="username"><i class="fas fa-user"></i></label>
+        <input type="text" name="username" placeholder="Username">
+    </p>
+    <p>
+        <label for="password"><i class="fas fa-key"></i></label>
+        <input type="password" name="password" placeholder="Password">
+    </p>
+    <p class="form-link">Don't have an account? <a href="#/register">Register</a></p>
+    <input type="submit" value="Login">
+</form>
+{{>footer}}

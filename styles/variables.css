@@ -1,6 +1,6 @@
 :root{
-    --site-content-font: 'PT-Serif';
-    --site-headings-font: 'PT-Sans';
+    --site-content-font: 'PT-Sans';
+    --site-headings-font: 'PT-Serif';
     --site-main-color: rgb(76, 161, 144);
     --site-second-color: rgb(255, 255, 255);
 }

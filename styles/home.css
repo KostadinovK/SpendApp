@@ -43,3 +43,9 @@
     border-radius: 10px;
     font-size: 1.3rem;
 }
+
+.cta a:hover{
+    background: var(--site-second-color);
+    color: var(--site-main-color);
+    cursor: pointer;
+}

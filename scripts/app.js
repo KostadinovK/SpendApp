@@ -11,6 +11,15 @@ const app = Sammy('#main', function(){
         });
     });
 
+    this.get('#/login', (context) => {
+        context.loadPartials({
+            header: './views/common/header.hbs',
+            footer: './views/common/footer.hbs'
+        }).then(function(){
+            this.partial('./views/user/login.hbs');
+        });
+    });
+
 });
 
 (() => {
