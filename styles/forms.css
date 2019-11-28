@@ -16,6 +16,18 @@ form i{
     color: var(--site-main-color);
 }
 
+form textarea{
+    display: block;
+    flex: 0 0 100%;
+    outline: none;
+    font-size: 1.4rem;
+    padding: 1rem;
+}
+
+form textarea:focus{
+    border: 2px solid var(--site-main-color);
+}
+
 form .form-link a{
     margin-left: 1rem;
     text-decoration: none;
