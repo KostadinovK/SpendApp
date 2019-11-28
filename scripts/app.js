@@ -1,53 +1,21 @@
 const app = Sammy('#main', function(){
+
     this.use('Handlebars', 'hbs');
 
-    this.get('#/home', (context) => 
-    {
-        context.loadPartials({
-            header: './views/common/header.hbs',
-            footer: './views/common/footer.hbs'
-        }).then(function() {
-            this.partial('./views/home/cta.hbs');
-        });
-    });
+    //Home
+    this.get('#/home', homeController.getHome);
 
-    this.get('#/login', (context) => {
-        context.loadPartials({
-            header: './views/common/header.hbs',
-            footer: './views/common/footer.hbs'
-        }).then(function(){
-            this.partial('./views/user/login.hbs');
-        });
-    });
+    //Login
+    this.get('#/login', userController.getLogin);
 
-    this.get('#/register', (context) => {
-        context.loadPartials({
-            header: './views/common/header.hbs',
-            footer: './views/common/footer.hbs'
-        }).then(function(){
-            this.partial('./views/user/register.hbs');
-        });
-    });
+    //Register
+    this.get('#/register', userController.getRegister);
 
-    this.get('#/incomes/register', (context) => {
-        context.loadPartials({
-            header: './views/common/header.hbs',
-            categories: './views/incomes/categories.hbs',
-            footer: './views/common/footer.hbs'
-        }).then(function(){
-            this.partial('./views/incomes/register.hbs');
-        });
-    });
+    //Incomes
+    this.get('#/incomes/register', incomeController.getRegister);
 
-    this.get('#/payments/register', (context) => {
-        context.loadPartials({
-            header: './views/common/header.hbs',
-            categories: './views/payments/paymentCategories.hbs',
-            footer: './views/common/footer.hbs'
-        }).then(function(){
-            this.partial('./views/payments/register.hbs');
-        });
-    });
+    //Payments
+    this.get('#/payments/register', paymentController.getRegister);
 });
 
 (() => {
