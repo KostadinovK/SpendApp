@@ -1,11 +1,18 @@
 form{
     display: flex;
     flex-wrap: wrap;
+    width: 50%;
+    margin: 0 auto;
+    margin-left: auto;
 }
 
 form h2{
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    color: var(--site-main-color);
+}
+
+form i{
     color: var(--site-main-color);
 }
 
@@ -23,10 +30,20 @@ form input{
     border-radius: 10px;
     border: 1px solid gray;
     outline: none;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-radius: 0px;
+}
+
+form input[type="submit"]{
+    border-radius: 10px;
+    border: 1px solid gray;
+    outline: none;
 }
 
 form input:focus{
-    border: 2px solid var(--site-main-color);
+    border-bottom: 2px solid var(--site-main-color);
 }
 
 form input[type="submit"]{
@@ -46,12 +63,8 @@ form input[type="submit"]:hover{
     padding: 8rem 0rem;
 }
 
-.login-form,
-.register-form
-{
-    width: 50%;
-    margin: 0 auto;
-    margin-left: auto;
+.login-form p.form-link{
+    margin-top: 2rem;
 }
 
 .login-form h2,
@@ -75,7 +88,6 @@ form input[type="submit"]:hover{
 .register-form i
 {
     font-size: 1.5rem;
-    color: var(--site-main-color);
 }
 
 .login-form input,
@@ -107,6 +119,7 @@ form input[type="submit"]:hover{
 .register-form .currency{
     margin-bottom: 3rem;
     position: relative;
+    margin-top: 2rem;
 }
 
 .register-form .currency label{
@@ -125,4 +138,108 @@ form input[type="submit"]:hover{
 
 .register-form option{
     padding: 1.4rem;
+}
+
+
+.transaction-register{
+    margin: 8rem auto;
+}
+
+.transaction-register h2,
+.transaction-register h4{
+    flex: 0 0 100%;
+    text-align: center;
+    color: var(--site-main-color);
+}
+
+.transaction-register h2{
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+.transaction-register h4{
+    margin-bottom: 2rem;
+}
+
+.transaction-register p{
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.transaction-register p i{
+    font-size: 2rem;
+    width: 40px;
+}
+
+.transaction-register p input{
+    flex: 0 0 25%;
+    margin-left: 2rem;
+    padding: 0.5rem;
+}
+
+.transaction-register input[type="submit"]{
+    padding: 0.5rem;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+
+.transaction-register .categories{
+    display: flex;
+    flex: 0 0 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+}
+
+.transaction-register p.category{
+    flex: 0 0 40%;
+    display: flex;
+}
+
+.transaction-register p.category label{
+    flex: 0 0 100%;
+    border: 1px solid var(--site-main-color);
+    padding: 1rem 0rem;
+    text-align: center;
+    border-radius: 10px;
+    color: var(--site-main-color);
+    font-size: 1.4rem;
+}
+
+.transaction-register p.category input{
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+}
+
+.transaction-register p.category label i{
+    margin-right: 1rem;
+}
+
+.transaction-register p.category label:hover{
+    cursor: pointer;
+    background: var(--site-main-color);
+    color: var(--site-second-color);
+}
+
+.transaction-register p.category label:hover i{
+    color: var(--site-second-color);
+}
+
+.transaction-register p.category input:checked + label{
+    background: var(--site-main-color);
+    color: var(--site-second-color);
+}
+
+.transaction-register p.category input:checked + label i{
+    color: var(--site-second-color);
+}
+
+.transaction-register input[type="submit"]{
+    padding: 1.5rem 0;
 }
