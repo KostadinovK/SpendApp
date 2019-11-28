@@ -1,0 +1,20 @@
+{{>header}}
+<form class="transaction-register" action="#/payments/register" method="POST">
+    <h2>Payment</h2>
+    <h4>BGN</h4>
+    <p class="sum">
+        <label for="money"><i class="fas fa-money-bill-alt"></i></label>
+        <input type="number" name="money" min="0" step="any" placeholder="Sum">
+    </p>
+    <p class="date">
+        <label for="date"><i class="far fa-calendar"></i></label>
+        <input type="date" name="date" value="noDate" >
+    </p>
+    {{>categories}}
+    <p class="notes">
+        <h2>Notes</h2>
+        <textarea name="notes" cols="30" rows="5" placeholder="Notes about the Payment..."></textarea>
+    </p>
+    <input type="submit" value="Register">
+</form>
+{{>footer}}

@@ -27,7 +27,7 @@ const app = Sammy('#main', function(){
         }).then(function(){
             this.partial('./views/user/register.hbs');
         });
-    })
+    });
 
     this.get('#/incomes/register', (context) => {
         context.loadPartials({
@@ -37,7 +37,17 @@ const app = Sammy('#main', function(){
         }).then(function(){
             this.partial('./views/incomes/register.hbs');
         });
-    })
+    });
+
+    this.get('#/payments/register', (context) => {
+        context.loadPartials({
+            header: './views/common/header.hbs',
+            categories: './views/payments/paymentCategories.hbs',
+            footer: './views/common/footer.hbs'
+        }).then(function(){
+            this.partial('./views/payments/register.hbs');
+        });
+    });
 });
 
 (() => {
