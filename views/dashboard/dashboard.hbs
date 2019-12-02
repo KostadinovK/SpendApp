@@ -1,3 +1,25 @@
 {{>header}}
-<h2>Dashboard</h2>
+<h2 class="title">Dashboard</h2>
+<div class="balance-wrapper">
+    <div class="icon-wrapper">
+        <i class="fas fa-wallet"></i>
+    </div>
+    <div class="balance">
+        <p>200$</p>
+    </div>
+</div>
+<div class="chart-wrapper">
+    <canvas class="balance-chart" id="balance-chart" width="400" height="400"></canvas>
+</div>
+<div class="charts-wrapper">
+    <div class="payments-wrapper">
+        <h2>Payments</h2>
+        <canvas class="transaction-chart" id="payments-chart" width="400" height="400"></canvas>
+    </div>
+    <div class="incomes-wrapper">
+        <h2>Incomes</h2>
+        <canvas class="transaction-chart" id="incomes-chart" width="400" height="400"></canvas>
+    </div>
+</div>
+{{>transactions}}
 {{>footer}}
