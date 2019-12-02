@@ -5,6 +5,9 @@ const app = Sammy('#main', function(){
     //Home
     this.get('#/home', homeController.getHome);
 
+    //Dashboard
+    this.get('#/dashboard', dashboardController.getDashboard);
+
     //Login
     this.get('#/login', userController.getLogin);
 
