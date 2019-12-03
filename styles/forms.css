@@ -157,8 +157,13 @@ form input[type="submit"]:hover{
     margin: 8rem auto;
 }
 
+.edit-form{
+    margin: 4rem auto;
+}
+
 .transaction-register h2,
-.transaction-register h4{
+.transaction-register h4,
+.edit-form h2{
     flex: 0 0 100%;
     text-align: center;
     color: var(--site-main-color);
@@ -169,11 +174,16 @@ form input[type="submit"]:hover{
     font-size: 2.5rem;
 }
 
+.edit-form h2{
+    margin-bottom: 2rem;
+}
+
 .transaction-register h4{
     margin-bottom: 2rem;
 }
 
-.transaction-register p{
+.transaction-register p,
+.edit-form p{
     flex: 0 0 100%;
     display: flex;
     justify-content: center;
@@ -181,25 +191,29 @@ form input[type="submit"]:hover{
     margin-bottom: 2rem;
 }
 
-.transaction-register p i{
+.transaction-register p i,
+.edit-form p i{
     font-size: 2rem;
     width: 40px;
 }
 
-.transaction-register p input{
+.transaction-register p input,
+.edit-form p input{
     flex: 0 0 25%;
     margin-left: 2rem;
     padding: 0.5rem;
 }
 
-.transaction-register input[type="submit"]{
+.transaction-register input[type="submit"],
+.edit-form input[type="submit"]{
     padding: 0.5rem;
     width: 50%;
     margin: 0 auto;
     margin-top: 2rem;
 }
 
-.transaction-register .categories{
+.transaction-register .categories,
+.edit-form .categories{
     display: flex;
     flex: 0 0 100%;
     flex-wrap: wrap;
@@ -207,12 +221,14 @@ form input[type="submit"]:hover{
     margin-top: 2rem;
 }
 
-.transaction-register p.category{
+.transaction-register p.category,
+.edit-form p.category{
     flex: 0 0 40%;
     display: flex;
 }
 
-.transaction-register p.category label{
+.transaction-register p.category label,
+.edit-form p.category label{
     flex: 0 0 100%;
     border: 1px solid var(--site-main-color);
     padding: 1rem 0rem;
@@ -222,36 +238,43 @@ form input[type="submit"]:hover{
     font-size: 1.4rem;
 }
 
-.transaction-register p.category input{
+.transaction-register p.category input,
+.edit-form p.category input{
     margin: 0;
     opacity: 0;
     pointer-events: none;
     position: absolute;
 }
 
-.transaction-register p.category label i{
+.transaction-register p.category label i,
+.edit-form p.category label i{
     margin-right: 1rem;
 }
 
-.transaction-register p.category label:hover{
+.transaction-register p.category label:hover,
+.edit-form p.category label:hover{
     cursor: pointer;
     background: var(--site-main-color);
     color: var(--site-second-color);
 }
 
-.transaction-register p.category label:hover i{
+.transaction-register p.category label:hover i,
+.edit-form p.category label:hover i{
     color: var(--site-second-color);
 }
 
-.transaction-register p.category input:checked + label{
+.transaction-register p.category input:checked + label,
+.edit-form p.category input:checked + label{
     background: var(--site-main-color);
     color: var(--site-second-color);
 }
 
-.transaction-register p.category input:checked + label i{
+.transaction-register p.category input:checked + label i,
+.edit-form p.category input:checked + label i{
     color: var(--site-second-color);
 }
 
-.transaction-register input[type="submit"]{
+.transaction-register input[type="submit"],
+.edit-form input[type="submit"]{
     padding: 1.5rem 0;
 }

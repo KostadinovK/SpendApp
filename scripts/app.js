@@ -21,6 +21,7 @@ const app = Sammy('#main', function(){
     this.get('#/payments/register', paymentController.getRegister);
 
     this.get('#/transactions/:id', transactionController.getTransactionDetails);
+    this.get('#/transactions/:id/edit', transactionController.getEdit);
 });
 
 (() => {

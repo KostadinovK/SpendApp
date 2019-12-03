@@ -1,0 +1,19 @@
+{{>header}}
+<form class="edit-form" action="#/stories/{{transaction.id}}/edit" method="POST">
+    <h2>Edit A Transaction</h2>
+    <p class="sum">
+        <label for="money"><i class="fas fa-money-bill-alt"></i></label>
+        <input type="number" name="money" min="0" step="any" placeholder="Sum" value="200">
+    </p>
+    <p class="date">
+        <label for="date"><i class="far fa-calendar"></i></label>
+        <input type="date" name="date" value="2019-12-23" >
+    </p>
+    {{>categories}}
+    <p class="notes">
+        <h2>Notes</h2>
+        <textarea name="notes" cols="30" rows="5" placeholder="Notes about the Payment...">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, quod!</textarea>
+    </p>
+    <input type="submit" value="Edit">
+</form>
+{{>footer}}
