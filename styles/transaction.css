@@ -1,0 +1,118 @@
+.transactions{
+    width: 50%;
+    margin: 2rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: space-between;
+}
+
+.transaction{
+    flex: 0 0 40%;
+    margin-bottom: 1rem;
+}
+
+.transaction a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    border: 2px solid var(--site-main-color);
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.transaction a:hover{
+    color: var(--site-second-color);
+    background: var(--site-main-color);
+}
+
+.transaction a:hover .description i{
+    color: var(--site-second-color);
+}
+
+.transaction a .description{
+    flex: 0 0 80%;
+    display: flex;
+    align-items: center;
+}
+
+.transaction a .description i{
+    color: var(--site-main-color);
+    font-size: 3rem;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.transaction-details{
+    width: 50%;
+    margin: 2rem auto;
+    padding: 4rem 0rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 2px solid var(--site-main-color);
+    border-radius: 10px;
+    padding-left: 6rem;
+}
+
+.transaction-details .wrapper{
+    flex: 0 0 100%;
+    display: flex;
+    align-items: center;
+}
+
+.transaction-details .description{
+    flex: 0 0 80%;
+    display: flex;
+    align-items: center;
+}
+
+.transaction-details .notes{
+    flex: 0 0 100%;
+    margin: 3rem 0rem;
+}
+
+.transaction-details .icon-wrapper i{
+    color: var(--site-main-color);
+}
+
+.controls {
+    display: flex;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 2rem;
+    justify-content: space-evenly;
+}
+
+.controls a{
+    text-decoration: none;
+    padding: 0.5rem;
+    flex: 0 0 45%;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.controls .edit{
+    border: 2px solid var(--site-main-color);
+    background: var(--site-main-color);
+    color: var(--site-second-color);
+}
+
+.controls .edit:hover{
+    background: var(--site-second-color);
+    color: var(--site-main-color);
+}
+
+.controls .delete{
+    border: 2px solid rgb(255, 0, 0);
+    background: rgb(255, 0, 0);
+    color: var(--site-second-color);
+}
+
+.controls .delete:hover{
+    background: var(--site-second-color);
+    color: rgb(255, 0, 0);
+}
