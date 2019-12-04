@@ -88,10 +88,6 @@ const dashboardController = function(){
                 });
             })
         });
-
-        
-        
-            
     }
 
     return {

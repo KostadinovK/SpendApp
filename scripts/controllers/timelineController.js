@@ -5,7 +5,10 @@ const timelineController = function(){
             header: './views/common/header.hbs',
             footer: './views/common/footer.hbs'
         }).then(function(){
-            this.partial('./views/timeline/timeline.hbs');
+            this.partial('./views/timeline/timeline.hbs')
+            .then(function(){
+                
+            });
         });
     }
 
