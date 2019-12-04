@@ -15,10 +15,20 @@
     <div class="payments-wrapper">
         <h2>Payments</h2>
         <canvas class="transaction-chart" id="payments-chart" width="400" height="400"></canvas>
+        <div class="btns-wrapper">
+            <button class="total" id="totalPaymentsBtn">Total</button>
+            <button class="yearly" id="yearlyPaymentsBtn">This Year</button>
+            <button class="monthly" id="monthlyPaymentsBtn">This Month</button>
+        </div>
     </div>
     <div class="incomes-wrapper">
         <h2>Incomes</h2>
         <canvas class="transaction-chart" id="incomes-chart" width="400" height="400"></canvas>
+        <div class="btns-wrapper">
+            <button class="total" id="totalIncomesBtn">Total</button>
+            <button class="yearly" id="yearlyIncomesBtn">This Year</button>
+            <button class="monthly" id="monthlyIncomesBtn">This Month</button>
+        </div>
     </div>
 </div>
 {{>transactions}}

@@ -8,6 +8,8 @@ const app = Sammy('#main', function(){
     //Dashboard
     this.get('#/dashboard', dashboardController.getDashboard);
 
+    this.get('#/timeline', timelineController.getTimeline);
+
     //Login
     this.get('#/login', userController.getLogin);
 
