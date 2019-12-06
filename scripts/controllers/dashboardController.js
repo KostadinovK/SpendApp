@@ -4,7 +4,7 @@ const dashboardController = function(){
 
         context.loadPartials({
             header: './views/common/header.hbs',
-            transactions: './views/dashboard/transactions.hbs',
+            transactions: './views/transaction/transactions.hbs',
             footer: './views/common/footer.hbs'
         }).then(function(){
             this.partial('./views/dashboard/dashboard.hbs').then(function(){

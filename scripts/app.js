@@ -8,7 +8,9 @@ const app = Sammy('#main', function(){
     //Dashboard
     this.get('#/dashboard', dashboardController.getDashboard);
 
+    //Timeline
     this.get('#/timeline', timelineController.getTimeline);
+    this.post('#/timeline', timelineController.getStats);
 
     //Login
     this.get('#/login', userController.getLogin);
