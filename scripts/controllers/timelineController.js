@@ -70,8 +70,6 @@ const timelineController = function(){
                 let paymentsDailyCtx = document.getElementById('payments-stats-daily');
                 let incomesDailyCtx = document.getElementById('incomes-stats-daily');
 
-                //let diffCtx = document.getElementById('incomes-payments-diff');
-                
                 let paymentsYearlyChart = new Chart(paymentYearlyCtx, {
                     type: 'pie',
                     data: paymentsData,
