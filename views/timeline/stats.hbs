@@ -1,5 +1,21 @@
 {{>header}}
 <section class="stats">
+    <div class="yearly">
+        <h2 class="title">Year 2019</h2>
+        {{!-- <div class="diff-chart">
+            <canvas class="balance-chart" id="incomes-payments-diff" width="400" height="400"></canvas>
+        </div> --}}
+        <div class="charts-wrapper">
+            <div class="payments-wrapper">
+                <h2>Payments</h2>
+                <canvas class="transaction-chart" id="payments-stats-yearly" width="400" height="400"></canvas>
+            </div>
+            <div class="incomes-wrapper">
+                <h2>Incomes</h2>
+                <canvas class="transaction-chart" id="incomes-stats-yearly" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
     <div class="monthly">
         <h2 class="title">November 2019</h2>
         {{!-- <div class="diff-chart">

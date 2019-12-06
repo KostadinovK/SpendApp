@@ -48,35 +48,6 @@
     color: var(--site-main-color);
 }
 
-.charts-wrapper .controls{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin: 0;
-}
-
-.charts-wrapper button{
-    padding: 0.5rem;
-    border: 1px solid var(--site-main-color);
-    background: var(--site-main-color);
-    border-radius: 10px;
-    color: var(--site-second-color);
-    font-size: 1.2rem;
-    margin-top: 2rem;
-    text-align: center;
-}
-
-.charts-wrapper button:hover{
-    background: var(--site-second-color);
-    color: var(--site-main-color);
-    cursor: pointer;
-}
-
-.btns-wrapper{
-    display: flex;
-    justify-content: space-evenly;
-}
-
 canvas.transaction-chart{
     flex: 0 0 40%;
     width: 400px;

@@ -61,7 +61,9 @@ const timelineController = function(){
                     responsive: false,
                     cutoutPercentage: 40
                 };
-                
+                let paymentYearlyCtx = document.getElementById('payments-stats-yearly');
+                let incomesYearlyCtx = document.getElementById('incomes-stats-yearly');
+
                 let paymentsMonthlyCtx = document.getElementById('payments-stats-monthly');
                 let incomesMonthlyCtx = document.getElementById('incomes-stats-monthly');
 
@@ -70,6 +72,17 @@ const timelineController = function(){
 
                 //let diffCtx = document.getElementById('incomes-payments-diff');
                 
+                let paymentsYearlyChart = new Chart(paymentYearlyCtx, {
+                    type: 'pie',
+                    data: paymentsData,
+                    options: options 
+                });
+
+                let incomesYearlyChart = new Chart(incomesYearlyCtx, {
+                    type: 'pie',
+                    data: incomesData,
+                    options: options 
+                });
 
                 let paymentsMonthlyChart = new Chart(paymentsMonthlyCtx, {
                     type: 'pie',
@@ -83,13 +96,13 @@ const timelineController = function(){
                     options: options 
                 });
 
-                let paymentsYearlyChart = new Chart(paymentsDailyCtx, {
+                let paymentsDailyChart = new Chart(paymentsDailyCtx, {
                     type: 'pie',
                     data: paymentsData,
                     options: options 
                 });
 
-                let incomesYearlyChart = new Chart(incomesDailyCtx, {
+                let incomesDailyChart = new Chart(incomesDailyCtx, {
                     type: 'pie',
                     data: incomesData,
                     options: options 
