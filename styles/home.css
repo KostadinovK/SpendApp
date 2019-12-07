@@ -42,6 +42,7 @@
     background: var(--site-main-color);
     border-radius: 10px;
     font-size: 1.3rem;
+    opacity: 1;
 }
 
 .cta a:hover{

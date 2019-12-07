@@ -28,10 +28,24 @@ nav ul li{
     flex: 1 1 20%;
     list-style: none;
     padding: 1.2rem;
+    text-align: center;
 }
 
 nav ul li a{
     text-decoration: none;
     color: var(--site-second-color);
     font-size: 1.2rem;
+}
+
+nav ul li a:after{
+    display: block;
+    content: '';
+    width: 50%;
+    height: 6px;
+    background: var(--site-second-color);
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    opacity: 0;
+    bottom: 10%;
 }
