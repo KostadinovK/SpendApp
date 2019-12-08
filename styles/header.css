@@ -19,6 +19,20 @@
     margin-left: auto;
 }
 
+.site-header label{
+    display: none;
+}
+
+.site-header label i, .site-header label span{
+    color: var(--site-second-color);
+    font-size: 2rem;
+}
+
+.site-header>input{
+    opacity: 0;
+    pointer-events: none;
+}
+
 nav ul{
     display: flex;
     align-items: center;
@@ -48,4 +62,95 @@ nav ul li a:after{
     transform: translateX(50%);
     opacity: 0;
     bottom: 10%;
+}
+
+@media (max-width: 1300px) {
+    .site-header{
+        flex-wrap: wrap;
+    }
+
+    .site-header .logo{
+        flex: 1 1 100%;
+        margin-right: 0;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .site-header nav{
+        justify-content: center;
+        flex-wrap: wrap;
+        flex: 1 1 100%;
+    }
+
+    .site-header nav ul{
+        flex: 1 1 100%;
+    }
+
+    .site-header nav ul li{
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        flex: 1 1 100%;
+        padding: 0;
+    }
+
+    .site-header nav ul li a{
+        font-size: 1.8rem;
+        flex: 1 1 100%;
+        border: 1px solid var(--site-second-color);
+        border-radius: 10px;
+        opacity: 0;
+    }
+
+    .site-header nav ul li:first-child{
+        margin-top: 1rem;
+    }
+
+    .site-header nav ul li:not(:last-child){
+        margin-bottom: 1rem;
+    }
+
+    .site-header label{
+        display: block;
+        text-align: center;
+    }
+
+    .site-header input{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .site-header input + nav ul{
+        display: none;
+    }
+
+    .site-header input + nav label .open{
+        display: inline;
+        font-weight: bold;
+    }
+
+    .site-header input + nav label .close{
+        display: none;
+    }
+
+    .site-header input:checked + nav label .close{
+        display: inline;
+        font-weight: bold;
+    }
+
+    .site-header input:checked + nav label .open{
+        display: none;
+    }
+
+    .site-header input:checked + nav a{
+        padding: 1rem 0;
+    }
+
+    .site-header input:checked + nav ul{
+        display: block;
+        border-top: 2px solid var(--site-second-color);
+		border-bottom: 2px solid var(--site-second-color);
+    }
 }

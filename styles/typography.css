@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700|PT+Serif:400,700&display=swap');
 
 html{
-    font-size: 16px;
+    font-size: var(--pc-font-size);
     line-height: 1.2;
     font-family: var(--site-content-font), sans-serif;
+}
+
+@media (max-width: 1000px){
+	html{
+		font-size: var(--mobile-font-size);
+	}
 }
 
 input, button, textarea{

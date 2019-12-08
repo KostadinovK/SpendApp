@@ -18,6 +18,17 @@
     }
 }
 
+@keyframes fadeInWithMovementAtBottom {
+	0% {
+		opacity: 0;
+		transform: translateY(-2em);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 @keyframes changeColorMainToSecond {
 	0% {
 		background-color: var(--site-main-color);
@@ -106,4 +117,19 @@ form input[type="submit"]:hover,
 .category label:hover {
     animation: changeColorSecondToMain 0.2s linear;
     animation-fill-mode: both;
+}
+
+@media (max-width: 1300px) {
+    input:checked + nav ul, input:checked + nav ul li a{
+        animation: fadeInWithMovementAtBottom 0.2s linear;
+		animation-fill-mode: both; 
+    }
+
+    input:checked + nav ul li:nth-child(1) a{ animation-delay: 0.1s};
+    input:checked + nav ul li:nth-child(2) a{ animation-delay: 0.2s};
+    input:checked + nav ul li:nth-child(3) a{ animation-delay: 0.3s};
+    input:checked + nav ul li:nth-child(4) a{ animation-delay: 0.4s};
+    input:checked + nav ul li:nth-child(5) a{ animation-delay: 0.5s};
+    input:checked + nav ul li:nth-child(6) a{ animation-delay: 0.6s};
+    input:checked + nav ul li:nth-child(7) a{ animation-delay: 0.7s};
 }

@@ -3,4 +3,6 @@
     --site-headings-font: 'PT-Serif';
     --site-main-color: rgb(76, 161, 144);
     --site-second-color: rgb(255, 255, 255);
+    --pc-font-size: 16px;
+    --mobile-font-size: 18px;
 }
