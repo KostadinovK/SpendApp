@@ -6,6 +6,8 @@ form{
     margin-left: auto;
 }
 
+
+
 form h2{
     font-size: 2.5rem;
     margin-bottom: 2rem;
@@ -279,3 +281,33 @@ form input[type="submit"]:hover{
 .edit-form input[type="submit"]{
     padding: 1.5rem 0;
 }
+
+@media(max-width: 900px){
+    form{
+        width: 80%;
+    }
+
+    .login-form input[type="submit"],
+    .register-form input[type="submit"]{
+        flex: 0 0 60%;
+    }
+
+    .register-form .currency{
+        flex-wrap: wrap;
+    }
+
+    .register-form .currency label{
+        flex: 0 0 100%;
+        margin: 0;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .register-form .currency select{
+        flex: 0 0 80%;
+        margin: 0;
+        margin-bottom: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+ }
