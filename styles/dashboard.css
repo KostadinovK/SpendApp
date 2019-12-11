@@ -53,3 +53,9 @@ canvas.transaction-chart{
     width: 400px;
     height: 400px;
 }
+
+@media(max-width: 900px){
+    .chart-wrapper h2{
+        margin-top: 2rem;
+    }
+}

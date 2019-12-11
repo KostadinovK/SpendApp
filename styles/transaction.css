@@ -118,6 +118,14 @@
 }
 
 @media(max-width: 900px){
+    .transactions{
+        width: 80%;
+    }
+
+    .transaction{
+        flex: 0 0 100%;
+    }
+
     .transaction-details{
         width: 90%;
         margin: 2rem auto;

@@ -30,3 +30,14 @@
 .timeline form input[type="date"]:focus{
     border: 2px solid var(--site-main-color);
 }
+
+@media(max-width: 900px){
+    .timeline form{
+        width: 80%;
+    }
+
+    .timeline form input{
+        flex: 0 0 80%;
+        margin-bottom: 2rem;
+    }
+}
