@@ -118,6 +118,9 @@
 }
 
 @media(max-width: 900px){
+    h3.title{
+        font-size: 2rem;
+    }
     .transactions{
         width: 80%;
     }
