@@ -55,6 +55,10 @@ canvas.transaction-chart{
 }
 
 @media(max-width: 900px){
+    .title {
+        font-size: 2rem;
+    }
+    
     .chart-wrapper h2{
         margin-top: 2rem;
     }
