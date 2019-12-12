@@ -1,6 +1,10 @@
 {{>header}}
 <form class="edit-form" action="#/stories/{{transaction.id}}/edit" method="POST">
     <h2>Edit A Transaction</h2>
+    <p class="name">
+        <label for="name"><i class="far fa-sticky-note"></i></label>
+        <input type="text" name="name" placeholder="Name" value="Box Office">
+    </p>
     <p class="sum">
         <label for="money"><i class="fas fa-money-bill-alt"></i></label>
         <input type="number" name="money" min="0" step="any" placeholder="Sum" value="200">
