@@ -99,23 +99,8 @@ form input[type="submit"]{
     animation-fill-mode: both;
 }
 
-form input[type="submit"]:hover,
-.category label:hover{
+form input[type="submit"]:hover{
     animation: changeColorMainToSecond 0.3s linear;
-}
-
-.category{
-    animation: fadeIn 0.5s linear;
-    animation-fill-mode: both;
-}
-
-.category label {
-    animation: changeColorMainToSecond 0.2s linear;
-    animation-fill-mode: both;
-}
-
-.category label:hover {
-    animation: changeColorSecondToMain 0.2s linear;
     animation-fill-mode: both;
 }
 

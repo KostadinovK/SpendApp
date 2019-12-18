@@ -227,7 +227,6 @@ form input[type="submit"]:hover{
 .edit-form p.category{
     flex: 0 0 40%;
     display: flex;
-    opacity: 0;
 }
 
 .transaction-register p.category label,
