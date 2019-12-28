@@ -5,14 +5,16 @@
         <label for="toggle"><span class="close">X Close </span><span class="open"><i class="fas fa-bars"></i>
             Menu</span></label>
         <ul>
+            {{#if loggedIn}}
             <li><a href="#/dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
             <li><a href="#/timeline"><i class="far fa-calendar-alt"></i> Timeline</a></li>
             <li><a href="#/payments/register"><i class="fas fa-shopping-basket"></i> Payments</a></li>
             <li><a href="#/incomes/register"><i class="fas fa-money-bill-alt"></i> Incomes</a></li>
             <li><a href="#/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-        
+            {{else}}
             <li class="authentication"><a href="#/register"><i class="fas fa-sign-in-alt"></i> Register</a></li>
             <li class="authentication"><a href="#/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            {{/if}}
         </ul>
     </nav>
 </header>

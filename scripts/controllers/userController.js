@@ -1,7 +1,8 @@
 const userController = function(){
 
     const getLogin = function(context) {
-        
+        context.loggedIn = globalConstants.IsLoggedIn();
+
         context.loadPartials({
             header: './views/common/header.hbs',
             footer: './views/common/footer.hbs'
@@ -11,6 +12,7 @@ const userController = function(){
     }
 
     const getRegister = async function(context) {
+        context.loggedIn = globalConstants.IsLoggedIn();
 
         context.currencies = await currencyService.getCurrencies().then(currencies => currencies.json());
     

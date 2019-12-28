@@ -1,6 +1,6 @@
 const currencyService = function(){
 
-    const baseUrl = "http://localhost:5000/currencies";
+    const baseUrl = `http://${globalConstants.ApiAdress}:${globalConstants.ApiPort}/currencies`;
 
     const getCurrencies = function(){
 
