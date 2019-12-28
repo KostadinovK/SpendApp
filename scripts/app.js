@@ -17,6 +17,7 @@ const app = Sammy('#main', function(){
 
     //Register
     this.get('#/register', userController.getRegister);
+    this.post('#/register', userController.Register);
 
     //Incomes
     this.get('#/incomes/register', incomeController.getRegister);

@@ -20,8 +20,13 @@ const userController = function(){
         });
     }
 
+    const Register = function(context){
+
+    }
+
     return {
         getLogin,
-        getRegister
+        getRegister,
+        Register
     };
 }();
