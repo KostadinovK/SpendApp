@@ -1,26 +1,27 @@
 const requester = function(){
-    const get = function(url, headers){
-        headers.method = 'GET';
-        return makeRequest(url, headers);
+    const get = function(url, request){
+        request.method = 'GET';
+        return makeRequest(url, request);
     }
 
-    const put = function(url, headers){
-        headers.method = 'PUT';
-        return makeRequest(url, headers);
+    const put = function(url, request){
+        request.method = 'PUT';
+        return makeRequest(url, request);
     }
 
-    const post = function(url, headers){
-        headers.method = 'POST';
-        return makeRequest(url, headers);
+    const post = function(url, request){
+        request.method = 'POST';
+        return makeRequest(url, request);
     }
 
-    const del = function(url, headers){
-        headers.method = 'DELETE';
-        return makeRequest(url, headers);
+    const del = function(url, request){
+        request.method = 'DELETE';
+        return makeRequest(url, request);
     }
 
-    const makeRequest = function (url, headers) {
-        return fetch(url, headers);
+    const makeRequest = function (url, request) {
+        request.headers['Content-Type'] = 'application/json';
+        return fetch(url, request);
     }
 
     return {

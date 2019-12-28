@@ -1,5 +1,16 @@
 const userController = function(){
 
+    function isDataValid(params){
+        if(params.username.length < 3
+            || params.password.length < 3
+            || params.password !== params.confirmPassword
+            || params.budget.length === 0)
+        {
+                return false;
+        }
+
+        return true;
+    }
     const getLogin = function(context) {
         context.loggedIn = globalConstants.IsLoggedIn();
 
@@ -24,15 +35,28 @@ const userController = function(){
         });
     }
 
-    const Register = function(context){
-        const {username, password, confirmPassword, budget, currency} = context.params;
+    const postRegister = function(context){
 
-        console.log(username);
+        if(!isDataValid(context.params)){
+            context.redirect("#/register");
+            return;
+        }
+
+        context.params.budget = Number(context.params.budget);
+        context.params.currency = Number(context.params.currency);
+        console.log("Valid data");
+        userService.register(context.params)
+        .then(response => {
+            response.json();
+            console.log(response);
+        })
+        .then(data => context.redirect("#/login"))
+        .catch(err => console.log(err));
     }
 
     return {
         getLogin,
         getRegister,
-        Register
+        postRegister
     };
 }();
