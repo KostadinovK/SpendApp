@@ -20,9 +20,9 @@
     <p class="currency">
         <label for="currency">Currency: </label>
         <select name="currency" id="curr">
-            <option value="dollars">Dollar ($)</option>
-            <option value="euros">Euro (&euro;)</option>
-            <option value="levas">Lev (.lv)</option>
+            {{#each currencies}}
+                <option value="{{Id}}">{{Name}} ({{Code}})</option>
+            {{/each}}
         </select>
     </p>
     <p class="form-link">Already have an account? <a href="#/login">Login</a></p>

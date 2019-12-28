@@ -10,8 +10,10 @@ const userController = function(){
         });
     }
 
-    const getRegister = function(context) {
+    const getRegister = async function(context) {
 
+        context.currencies = await currencyService.getCurrencies().then(currencies => currencies.json());
+    
         context.loadPartials({
             header: './views/common/header.hbs',
             footer: './views/common/footer.hbs'
@@ -21,7 +23,9 @@ const userController = function(){
     }
 
     const Register = function(context){
+        const {username, password, confirmPassword, budget, currency} = context.params;
 
+        console.log(username);
     }
 
     return {
