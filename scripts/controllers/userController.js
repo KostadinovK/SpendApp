@@ -44,13 +44,14 @@ const userController = function(){
 
         context.params.budget = Number(context.params.budget);
         context.params.currency = Number(context.params.currency);
-        console.log("Valid data");
+
         userService.register(context.params)
-        .then(response => {
-            response.json();
-            console.log(response);
+        .then(async response => {
+            let user = await response.json();
+            console.log(user);
+            context.redirect("#/login");
+
         })
-        .then(data => context.redirect("#/login"))
         .catch(err => console.log(err));
     }
 

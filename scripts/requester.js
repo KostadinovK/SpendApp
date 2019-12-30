@@ -21,6 +21,9 @@ const requester = function(){
 
     const makeRequest = function (url, request) {
         request.headers['Content-Type'] = 'application/json';
+        request.mode = 'cors';
+        request.credentials = 'include';
+       
         return fetch(url, request);
     }
 
