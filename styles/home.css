@@ -26,7 +26,7 @@
 .cta h2{
     text-transform: capitalize;
     font-size: 3rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
 }
 
 .cta h3{
@@ -49,6 +49,12 @@
     background: var(--site-second-color);
     color: var(--site-main-color);
     cursor: pointer;
+}
+
+.cta span.username{
+    color: var(--site-main-color);
+    text-transform: none;
+    font-size: 4rem;
 }
 
 @media(max-width: 900px){

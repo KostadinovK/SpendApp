@@ -2,6 +2,7 @@ const homeController = function() {
     
     const getHome = function(context){
         context.loggedIn = globalConstants.IsLoggedIn();
+        context.username = JSON.parse(storage.getData(`${globalConstants.UsernameToken}`));
 
         context.loadPartials({
             header: './views/common/header.hbs',

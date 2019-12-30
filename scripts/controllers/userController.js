@@ -39,6 +39,7 @@ const userController = function(){
                 return;
             }
 
+            storage.saveData('username', res.Username);
             storage.saveData(`${globalConstants.AuthToken}`, res.Id);
             context.redirect("#/home");
         })
@@ -86,6 +87,7 @@ const userController = function(){
     const getLogout = function(context){
         userService.logout()
         .then(response => {
+            storage.deleteData('username');
             storage.deleteData(`${globalConstants.AuthToken}`);
             context.redirect("#/home");
         })
