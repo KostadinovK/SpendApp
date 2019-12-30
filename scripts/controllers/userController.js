@@ -55,8 +55,7 @@ const userController = function(){
             footer: './views/common/footer.hbs'
         }).then(function(){
             this.partial('./views/user/register.hbs');
-        })
-        .catch(err => console.log(err));
+        });
     }
 
     const postRegister = function(context){
