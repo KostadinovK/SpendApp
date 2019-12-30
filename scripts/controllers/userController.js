@@ -22,6 +22,29 @@ const userController = function(){
         });
     }
 
+    const postLogin = function(context){
+
+        if(context.params.username.length < 3 || context.params.password.length < 3){
+            context.redirect("#/login");
+            return;
+        }
+        
+        userService.login(context.params)
+        .then(async response => {
+            let res = await response.json();
+
+            if(res.error){
+                console.log(res.error);
+                context.redirect("#/login");
+                return;
+            }
+
+            storage.saveData(`${globalConstants.AuthToken}`, res.Id);
+            context.redirect("#/home");
+        })
+        .catch(err => console.log(err));
+    }
+
     const getRegister = async function(context) {
         context.loggedIn = globalConstants.IsLoggedIn();
 
@@ -32,7 +55,8 @@ const userController = function(){
             footer: './views/common/footer.hbs'
         }).then(function(){
             this.partial('./views/user/register.hbs');
-        });
+        })
+        .catch(err => console.log(err));
     }
 
     const postRegister = function(context){
@@ -47,17 +71,34 @@ const userController = function(){
 
         userService.register(context.params)
         .then(async response => {
-            let user = await response.json();
-            console.log(user);
-            context.redirect("#/login");
+            let res = await response.json();
+            if(!res){
+                context.redirect("#/register");
+                return;
+            }
 
+            context.redirect("#/login");
         })
         .catch(err => console.log(err));
     }
 
+    
+
+    const getLogout = function(context){
+        userService.logout()
+        .then(response => {
+            storage.deleteData(`${globalConstants.AuthToken}`);
+            context.redirect("#/home");
+        })
+        .catch(err => console.log(err));
+        
+    }
+
     return {
         getLogin,
+        postLogin,
         getRegister,
-        postRegister
+        postRegister,
+        getLogout
     };
 }();

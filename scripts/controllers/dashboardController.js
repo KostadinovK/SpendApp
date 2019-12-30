@@ -2,6 +2,16 @@ const dashboardController = function(){
     
     const getDashboard = async function(context){
 
+        let response = await fetch('http://localhost:5000/users', {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+            }).then(response => response.json());
+        console.log(response);
+
         context.loadPartials({
             header: './views/common/header.hbs',
             transactions: './views/transaction/transactions.hbs',

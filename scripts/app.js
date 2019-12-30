@@ -14,10 +14,14 @@ const app = Sammy('#main', function(){
 
     //Login
     this.get('#/login', userController.getLogin);
+    this.post('#/login', userController.postLogin);
 
     //Register
     this.get('#/register', userController.getRegister);
     this.post('#/register', userController.postRegister);
+
+    //Logout
+    this.get('#/logout', userController.getLogout);
 
     //Incomes
     this.get('#/incomes/register', incomeController.getRegister);
