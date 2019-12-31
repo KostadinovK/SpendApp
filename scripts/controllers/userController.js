@@ -77,8 +77,8 @@ const userController = function(){
                 return;
             }
             
-            let year = res.RegisterTimestamp.split('-')[0];
-            let month = res.RegisterTimestamp.split('-')[1];
+            let year = dateHelper.getYearFromTimestamp(res.RegisterTimestamp);
+            let month = dateHelper.getMonthFromTimestamp(res.RegisterTimestamp);
             
             budgetService.addBudget(res.Id, res.BudgetAmount, year, month)
             .then(async response => {
