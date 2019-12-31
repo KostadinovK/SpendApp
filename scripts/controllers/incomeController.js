@@ -48,6 +48,21 @@ const incomeController = function(){
         incomeService.registerIncome(context.params)
         .then(async response => {
             let res = await response.json();
+
+            let amount = Number(res.Amount);
+            let userId = res.UserId;
+            let year = Number(dateHelper.getYearFromTimestamp(res.Date));
+            let month = Number(dateHelper.getMonthFromTimestamp(res.Date));
+
+            let budget = await budgetService.getBudgetByUserIdYearAndMonth(userId, year, month).then(response => response.json()).catch(err => console.log(err));
+        
+            if(budget.error){
+                await budgetService.addBudget(userId, amount, year, month).then(response => response.json()).catch(error => console.log(error));
+            }else{
+                let oldAmount = Number(budget.BudgetAmount);
+
+                await budgetService.editBudget(userId, amount + oldAmount, year, month).then(response => response.json()).catch(error => console.log(error));
+            }
             context.redirect('#/home');
         });
         
