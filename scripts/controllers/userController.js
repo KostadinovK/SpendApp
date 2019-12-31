@@ -72,12 +72,19 @@ const userController = function(){
         userService.register(context.params)
         .then(async response => {
             let res = await response.json();
-            if(!res){
+            if(res.error){
                 context.redirect("#/register");
                 return;
             }
-
-            context.redirect("#/login");
+            
+            let year = res.RegisterTimestamp.split('-')[0];
+            let month = res.RegisterTimestamp.split('-')[1];
+            
+            budgetService.addBudget(res.Id, res.BudgetAmount, year, month)
+            .then(async response => {
+                await response.json();
+                context.redirect('#/login');
+            });
         })
         .catch(err => console.log(err));
     }
