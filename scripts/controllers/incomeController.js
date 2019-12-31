@@ -38,7 +38,6 @@ const incomeController = function(){
     const postRegister = function(context){
 
         if(!isValidIncome(context.params)){
-            console.log('Params are invalid!')
             context.redirect("#/incomes/register");
             return;
         }
