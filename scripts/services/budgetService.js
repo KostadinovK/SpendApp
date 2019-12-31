@@ -32,15 +32,14 @@ const budgetService = function(){
 
     const editBudget = function(userId, amount, year, month){
         const url = baseUrl + `/${userId}/${year}/${month}`;
-        console.log(`New amount: ${amount}`);
+        
         const budget = {
             userId,
             budgetAmount: amount,
             year,
             month
         };
-        console.log("budget new: ");
-        console.log(budget);
+        
         const headers = {
             headers: {},
             body: JSON.stringify(budget)
