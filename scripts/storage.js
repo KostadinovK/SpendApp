@@ -4,7 +4,7 @@ const storage = function(){
     }
 
     const getData = function(key){
-        return localStorage.getItem(key);
+        return JSON.parse(localStorage.getItem(key));
     }
 
     const deleteData = function(key){

@@ -25,6 +25,7 @@ const app = Sammy('#main', function(){
 
     //Incomes
     this.get('#/incomes/register', incomeController.getRegister);
+    this.post('#/incomes/register', incomeController.postRegister);
 
     //Payments
     this.get('#/payments/register', paymentController.getRegister);
