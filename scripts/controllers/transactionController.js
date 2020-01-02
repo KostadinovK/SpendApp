@@ -44,17 +44,6 @@ const transactionController = function(){
         })
     };
 
-
-    const postIncomeEdit = function(context){
-    
-        console.log(context.params);
-        //income.Date = income.Date.split('T')[0];
-
-        
-
-        //context.redirect('#/dashboard');
-    };
-
     const getDelete = async function(context){
 
         if(context.path.includes('payment')){
@@ -115,7 +104,6 @@ const transactionController = function(){
 
     return {
         getTransactionDetails,
-        postIncomeEdit,
         getDelete
     };
 }();

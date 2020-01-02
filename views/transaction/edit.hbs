@@ -5,23 +5,15 @@
         <label for="name"><i class="far fa-sticky-note"></i></label>
         <input type="text" name="name" placeholder="Name" value="{{transaction.Name}}">
     </p>
-    <p class="sum">
-        <label for="money"><i class="fas fa-money-bill-alt"></i></label>
-        <input type="number" name="money" min="0" step="any" placeholder="Sum" value="{{transaction.Amount}}">
-    </p>
-    <p class="date">
-        <label for="date"><i class="far fa-calendar"></i></label>
-        <input type="date" name="date" value="{{transaction.Date}}" >
-    </p>
-    {{>categories}}
     <p class="notes">
         <h2>Notes</h2>
         <textarea name="notes" cols="30" rows="5" placeholder="Notes about the Payment...">{{transaction.Notes}}</textarea>
     </p>
     <input type="submit" value="Edit">
     <p class="oldData" style="display: none;">
-        <input type="date" name="oldDate" value="{{transaction.Date}}" >
-        <input type="number" name="oldMoney" min="0" step="any" placeholder="Sum" value="{{transaction.Amount}}">
+        <input type="date" name="date" value="{{transaction.Date}}" >
+        <input type="number" name="category" value="{{transaction.category}}" >
+        <input type="number" name="money" min="0" step="any" placeholder="Sum" value="{{transaction.Amount}}">
     </p>
 </form>
 {{>footer}}

@@ -19,6 +19,7 @@ const incomeService = function(){
             amount: params.money,
             date: params.date,
             name: params.name,
+            notes: params.notes,
             categoryId: params.category,
             userId: params.userId
         };
@@ -58,10 +59,11 @@ const incomeService = function(){
             amount: params.money,
             date: params.date,
             name: params.name,
+            notes: params.notes,
             categoryId: params.category,
             userId: params.userId
         };
-
+        
         const request = {
             headers: {},
             body: JSON.stringify(income)
