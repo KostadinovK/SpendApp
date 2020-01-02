@@ -41,6 +41,8 @@ const userController = function(){
 
             storage.saveData('username', res.Username);
             storage.saveData(`${globalConstants.AuthToken}`, res.Id);
+            storage.saveData(`currencyId`, res.CurrencyId);
+
             context.redirect("#/home");
         })
         .catch(err => console.log(err));
@@ -101,6 +103,8 @@ const userController = function(){
         .then(response => {
             storage.deleteData('username');
             storage.deleteData(`${globalConstants.AuthToken}`);
+            storage.deleteData(`currencyId`);
+            
             context.redirect("#/home");
         })
         .catch(err => console.log(err));

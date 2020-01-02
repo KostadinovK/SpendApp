@@ -17,6 +17,10 @@
     color: var(--site-main-color);
 }
 
+.red {
+    color: red;
+}
+
 .icon-wrapper{
     font-size: 4rem;
     color: rgb(122, 62, 0);

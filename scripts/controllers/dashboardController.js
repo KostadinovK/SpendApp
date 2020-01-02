@@ -1,16 +1,34 @@
 const dashboardController = function(){
     
+    const getBudget = async function(context){
+
+        let userId = storage.getData(`${globalConstants.AuthToken}`);
+        let currencyId = storage.getData('currencyId');
+
+        let budget = await budgetService.getUserLastBudget(userId);
+        context.amount = Number(budget.BudgetAmount);
+
+        if(context.amount < 0){
+            context.hasNegativeBalance = true;
+        }else{
+            context.hasNegativeBalance = false;
+        }
+
+        let currency = await currencyService.getCurrencyById(currencyId).then(resp => resp.json()).catch(err => console.log(err));
+
+        if(currency.Symbol === null || currency.Symbol === ""){
+            context.symbol = currency.Code;
+        }else{
+            context.symbol = currency.Symbol;
+        }
+    }
+
     const getDashboard = async function(context){
 
-        let response = await fetch('http://localhost:5000/users', {
-            method: 'GET',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-            }).then(response => response.json());
-        console.log(response);
+        context.loggedIn = globalConstants.IsLoggedIn();
+
+        await getBudget(context);
+        
 
         context.loadPartials({
             header: './views/common/header.hbs',

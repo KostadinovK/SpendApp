@@ -5,7 +5,7 @@
         <i class="fas fa-wallet"></i>
     </div>
     <div class="balance">
-        <p>200$</p>
+        <p><span {{#if hasNegativeBalance}} class="red" {{/if}}>{{amount}}</span> {{symbol}}</p>
     </div>
 </div>
 <div class="chart-wrapper">

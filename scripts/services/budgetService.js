@@ -46,11 +46,47 @@ const budgetService = function(){
         };
 
         return requester.put(url, headers);
+    };
+
+    const getUserBudgets = function(userId){
+        const url = baseUrl + `/${userId}`;
+
+        const headers = {
+            headers: {}
+        };
+
+        return requester.get(url, headers);
+    };
+
+    const getUserLastBudget = async function(userId){
+        let budgets = await getUserBudgets(userId).then(response => response.json()).catch(err => console.log(err));
+
+        if(budgets.length === 0){
+            return null;
+        }
+
+        budgets = budgets.sort((a, b) => {
+            if(a.Year > b.Year){
+                return -1;
+            }else if(a.Year < b.Year){
+                return 1;
+            }else{
+                if(a.Month > b.Month){
+                    return -1;
+                }else{
+                    return 1;
+                }
+            }
+        });
+
+        return budgets[0];
     }
 
     return {
         addBudget,
         getBudgetByUserIdYearAndMonth,
-        editBudget
+        editBudget,
+        getUserBudgets,
+        getUserLastBudget
     };
 }();
