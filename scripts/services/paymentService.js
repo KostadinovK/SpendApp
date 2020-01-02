@@ -19,6 +19,7 @@ const paymentService = function(){
             amount: params.money,
             date: params.date,
             name: params.name,
+            notes: params.notes,
             categoryId: params.category,
             userId: params.userId
         };
@@ -51,6 +52,27 @@ const paymentService = function(){
         return requester.get(url, request);
     };
 
+    const editPayment = function(params){
+        const url = baseUrl + `/payments/${params.id}`;
+
+        const payment = {
+            amount: params.money,
+            date: params.date,
+            name: params.name,
+            notes: params.notes,
+            categoryId: params.category,
+            userId: params.userId
+        };
+        
+        const request = {
+            headers: {},
+            body: JSON.stringify(payment)
+        };
+
+        return requester.put(url, request);
+    }
+
+
     const deletePayment = function(id){
         const url = baseUrl + `/payments/${id}`;
 
@@ -66,6 +88,7 @@ const paymentService = function(){
         registerPayment,
         getAllByUserId,
         getPaymentById,
+        editPayment,
         deletePayment
     };
 }();

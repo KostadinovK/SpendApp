@@ -103,12 +103,11 @@ const incomeController = function(){
     const postEdit = function(context){
         let userId = storage.getData('userId');
         context.params.userId = userId;
-        console.log(context.params);
-
+    
         incomeService.editIncome(context.params)
         .then(response => {
             response.json();
-            context.redirect('#/home');
+            context.redirect('#/dashboard');
         })
         .catch(err => console.log(err));
     };

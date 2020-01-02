@@ -100,8 +100,15 @@ const paymentController = function(){
     };
 
     const postEdit = function(context){
-    
-        console.log(context.params);
+        let userId = storage.getData('userId');
+        context.params.userId = userId;
+
+        paymentService.editPayment(context.params)
+        .then(response => {
+            response.json();
+            context.redirect('#/dashboard');
+        })
+        .catch(err => console.log(err));
     };
 
     return {
