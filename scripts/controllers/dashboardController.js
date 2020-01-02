@@ -71,6 +71,58 @@ const dashboardController = function(){
             data: balanceData,
             options
         });
+    };
+
+    const getPieChart = function(context, labels, data, options){
+
+        if(data.length === 0){
+
+            let parent = context.parentElement;
+            let header = document.createElement('h2');
+            header.textContent = 'No transactions yet';
+
+            parent.removeChild(context);
+            parent.appendChild(header);
+            return;
+        }
+
+        let chartData = {
+            labels,
+            datasets: [{
+              data,
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(33, 121, 92)',
+                'rgb(89, 122, 92)',
+                'rgb(125, 155, 88)',
+                'rgb(78, 217, 111)',
+                'rgb(88, 134, 200)',
+                'rgb(100, 220, 155)'
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(33, 121, 92)',
+                'rgb(89, 122, 92)',
+                'rgb(125, 155, 88)',
+                'rgb(78, 217, 111)',
+                'rgb(88, 134, 200)',
+                'rgb(100, 220, 155)'
+              ],
+              borderWidth: 1
+            }]
+        };
+
+        let chart = new Chart(context, {
+            type: 'pie',
+            data: chartData,
+            options 
+        });
     }
 
     const getCategoriesData = function(categories){
@@ -94,7 +146,8 @@ const dashboardController = function(){
         let categoriesData = getCategoriesData(paymentsCategories);
 
         let payments = await paymentService.getAllByUserId(userId).then(r => r.json()).catch(err => console.log(err));
-        
+        let ctx = document.getElementById('payments-chart');
+
         for (const payment of payments) {
             for (const category of categoriesData) {
                 if(payment.CategoryId === category.id){
@@ -102,7 +155,7 @@ const dashboardController = function(){
                 }
             }
         }
-
+        
         let labels = [];
         let data = [];
 
@@ -113,56 +166,7 @@ const dashboardController = function(){
             }
         }
 
-        let paymentsData = {
-            labels,
-            datasets: [{
-              data,
-              backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(33, 121, 92)',
-                'rgb(89, 122, 92)',
-                'rgb(125, 155, 88)',
-                'rgb(78, 217, 111)',
-                'rgb(88, 134, 200)',
-                'rgb(100, 220, 155)'
-              ],
-              borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(33, 121, 92)',
-                'rgb(89, 122, 92)',
-                'rgb(125, 155, 88)',
-                'rgb(78, 217, 111)',
-                'rgb(88, 134, 200)',
-                'rgb(100, 220, 155)'
-              ],
-              borderWidth: 1
-            }]
-        };
-
-        let ctx = document.getElementById('payments-chart');
-        
-        if(data.length !== 0){
-            
-            let paymentsChart = new Chart(ctx, {
-                type: 'pie',
-                data: paymentsData,
-                options 
-            });
-        }else{
-            let parent = ctx.parentElement;
-            let header = document.createElement('h2');
-            header.textContent = 'No transactions yet';
-
-            parent.removeChild(ctx);
-            parent.appendChild(header);
-        }
-        
+        getPieChart(ctx, labels, data, options);
     }
 
     const getIncomesChart = async function (userId, options) {
@@ -172,7 +176,8 @@ const dashboardController = function(){
         let categoriesData = getCategoriesData(incomeCategories);
 
         let incomes = await incomeService.getAllByUserId(userId).then(r => r.json()).catch(err => console.log(err));
-        
+        let ctx = document.getElementById('incomes-chart');
+
         for (const income of incomes) {
             for (const category of categoriesData) {
                 if(income.CategoryId === category.id){
@@ -191,56 +196,7 @@ const dashboardController = function(){
             }
         }
 
-        let incomesData = {
-            labels,
-            datasets: [{
-              data,
-              backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(33, 121, 92)',
-                'rgb(89, 122, 92)',
-                'rgb(125, 155, 88)',
-                'rgb(78, 217, 111)',
-                'rgb(88, 134, 200)',
-                'rgb(100, 220, 155)'
-              ],
-              borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(33, 121, 92)',
-                'rgb(89, 122, 92)',
-                'rgb(125, 155, 88)',
-                'rgb(78, 217, 111)',
-                'rgb(88, 134, 200)',
-                'rgb(100, 220, 155)'
-              ],
-              borderWidth: 1
-            }]
-        };
-
-        let ctx = document.getElementById('incomes-chart');
-
-        if(data.length !== 0){
-            
-            let incomesChart = new Chart(ctx, {
-                type: 'pie',
-                data: incomesData,
-                options 
-            });
-        }else{
-            let parent = ctx.parentElement;
-            let header = document.createElement('h2');
-            header.textContent = 'No transactions yet';
-
-            parent.removeChild(ctx);
-            parent.appendChild(header);
-        }
-        
+        getPieChart(ctx, labels, data, options);
     }
 
     const getDashboard = async function(context){
