@@ -32,7 +32,7 @@
 }
 
 .transaction a .description{
-    flex: 0 0 80%;
+    flex: 0 0 70%;
     display: flex;
     align-items: center;
 }
@@ -40,6 +40,10 @@
 .transaction a .description i{
     color: var(--site-main-color);
     font-size: 3rem;
+}
+
+.transaction:hover .money p{
+    color: var(--site-second-color);
 }
 
 .bold{

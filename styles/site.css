@@ -9,3 +9,11 @@
 @import url(./forms.css);
 @import url(./footer.css);
 @import url(./animations.css);
+
+.red{
+    color: red;
+}
+
+.green{
+    color: var(--site-main-color);
+}
