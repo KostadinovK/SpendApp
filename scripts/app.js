@@ -32,7 +32,8 @@ const app = Sammy('#main', function(){
     this.post('#/payments/register', paymentController.postRegister);
 
 
-    this.get('#/transactions/:id', transactionController.getTransactionDetails);
+    this.get('#/transactions/payment/:id', transactionController.getTransactionDetails);
+    this.get('#/transactions/income/:id', transactionController.getTransactionDetails);
     this.get('#/transactions/:id/edit', transactionController.getEdit);
 });
 

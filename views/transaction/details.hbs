@@ -3,23 +3,31 @@
     <div class="wrapper">
         <div class="description">
             <div class="icon-wrapper">
-                <i class="fas fa-smile-beam"></i>
+                <i class="{{transaction.icon}}"></i>
             </div>
             <div class="data">
-                <p class="bold">Box office</p>
-                <p>Nov 29, 2019</p>
+                <p class="bold">{{transaction.Name}}</p>
+                <p>{{transaction.date}}</p>
             </div>
         </div>
         <div class="money">
-            <p class="bold">- 40 $</p>
+            {{#if transaction.PaymentCategory}}
+                <p class="bold red">-{{transaction.Amount}} {{symbol}}</p>
+            {{else}}
+                <p class="bold green">+{{transaction.Amount}} {{symbol}}</p>
+            {{/if}}
         </div>
     </div>
     <div class="notes">
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere, odio.</p>
+        {{#if hasNotes}}
+            <p>{{transaction.Notes}}</p>
+        {{else}}
+            <h2 class="center green">No notes</h2>
+        {{/if}}
     </div>
     <div class="controls">
-        <a href="#/transactions/1/edit" class="edit"><i class="fas fa-edit"></i> Edit</a>
-        <a href="#/transactions/1/delete" class="delete"><i class="fas fa-trash"></i> Delete</a>
+        <a {{#if transaction.PaymentCategory}} href="#/transactions/payment/{{transaction.Id}}/edit" {{else}} href="#/transactions/income/{{transaction.Id}}/edit" {{/if}} class="edit"><i class="fas fa-edit"></i> Edit</a>
+        <a {{#if transaction.PaymentCategory}} href="#/transactions/payment/{{transaction.Id}}/delete" {{else}} href="#/transactions/income/{{transaction.Id}}/delete" {{/if}} class="delete"><i class="fas fa-trash"></i> Delete</a>
     </div>
 </div>
 {{>footer}}

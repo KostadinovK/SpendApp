@@ -17,3 +17,7 @@
 .green{
     color: var(--site-main-color);
 }
+
+.center{
+    text-align: center;
+}
