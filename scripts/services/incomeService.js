@@ -31,8 +31,19 @@ const incomeService = function(){
         return requester.post(url, request);
     };
 
+    const getAllByUserId = function(userId){
+        const url = baseUrl + `/incomes/user/${userId}`;
+
+        const request = {
+            headers: {}
+        };
+
+        return requester.get(url, request);
+    };
+
     return {
         getAllIncomeCategories,
-        registerIncome
+        registerIncome,
+        getAllByUserId
     };
 }();

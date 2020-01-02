@@ -156,21 +156,57 @@ const dashboardController = function(){
 
     const getIncomesChart = async function (userId, options) {
 
+        let incomeCategories = await incomeService.getAllIncomeCategories().then(r => r.json()).catch(err => console.log(err));
+
+        let categoriesData = getCategoriesData(incomeCategories);
+
+        let incomes = await incomeService.getAllByUserId(userId).then(r => r.json()).catch(err => console.log(err));
+        
+        for (const income of incomes) {
+            for (const category of categoriesData) {
+                if(income.CategoryId === category.id){
+                    category.count++;
+                }
+            }
+        }
+
+        let labels = [];
+        let data = [];
+
+        for (const category of categoriesData) {
+            if(category.count > 0){
+                labels.push(category.name);
+                data.push(category.count);
+            }
+        }
+
         let incomesData = {
-            labels: ['Car', 'Food', 'Home', 'Shopping'],
+            labels,
             datasets: [{
-              data: [12, 19, 3, 5],
+              data,
               backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
                 'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)'
+                'rgb(75, 192, 192)',
+                'rgb(33, 121, 92)',
+                'rgb(89, 122, 92)',
+                'rgb(125, 155, 88)',
+                'rgb(78, 217, 111)',
+                'rgb(88, 134, 200)',
+                'rgb(100, 220, 155)'
               ],
               borderColor: [
-                'rgb(255,99,132,1)',
-                'rgb(54, 162, 235, 1)',
-                'rgb(255, 206, 86, 1)',
-                'rgb(75, 192, 192, 1)'
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(33, 121, 92)',
+                'rgb(89, 122, 92)',
+                'rgb(125, 155, 88)',
+                'rgb(78, 217, 111)',
+                'rgb(88, 134, 200)',
+                'rgb(100, 220, 155)'
               ],
               borderWidth: 1
             }]
@@ -178,7 +214,7 @@ const dashboardController = function(){
 
         let ctx = document.getElementById('incomes-chart');
 
-        let paymentsChart = new Chart(ctx, {
+        let incomesChart = new Chart(ctx, {
             type: 'pie',
             data: incomesData,
             options 
