@@ -56,7 +56,14 @@ const incomeController = function(){
             let budget = await budgetService.getBudgetByUserIdYearAndMonth(userId, year, month).then(response => response.json()).catch(err => console.log(err));
         
             if(budget.error){
-                await budgetService.addBudget(userId, amount, year, month).then(response => response.json()).catch(error => console.log(error));
+                let lastBudget = await budgetService.getUserLastBudget(userId);
+                
+                if(lastBudget === null){
+                    await budgetService.addBudget(userId, amount, year, month).then(response => response.json()).catch(error => console.log(error));
+                }else{
+                    let oldAmount = Number(lastBudget.BudgetAmount);
+                    await budgetService.addBudget(userId, amount + oldAmount, year, month).then(response => response.json()).catch(error => console.log(error));
+                }
             }else{
                 let oldAmount = Number(budget.BudgetAmount);
 
