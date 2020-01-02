@@ -22,7 +22,7 @@ const dashboardController = function(){
         }
     }
 
-    const getBalanceChart = async function (context, userId) {
+    const getBalanceChart = async function (userId) {
 
         let budgets = await budgetService.getUserBudgets(userId).then(resp => resp.json()).catch(err => console.log(err));
 
@@ -73,6 +73,118 @@ const dashboardController = function(){
         });
     }
 
+    const getCategoriesData = function(categories){
+        let res = [];
+
+        for (const category of categories) {
+            let data = {};
+            data.name = category.Name;
+            data.id = category.Id;
+            data.count = 0;
+            res.push(data);
+        }
+
+        return res;
+    }
+
+    const getPaymentsChart = async function (userId, options) {
+
+        let paymentsCategories = await paymentService.getAllPaymentCategories().then(r => r.json()).catch(err => console.log(err));
+
+        let categoriesData = getCategoriesData(paymentsCategories);
+
+        let payments = await paymentService.getAllByUserId(userId).then(r => r.json()).catch(err => console.log(err));
+        
+        for (const payment of payments) {
+            for (const category of categoriesData) {
+                if(payment.CategoryId === category.id){
+                    category.count++;
+                }
+            }
+        }
+
+        let labels = [];
+        let data = [];
+
+        for (const category of categoriesData) {
+            if(category.count > 0){
+                labels.push(category.name);
+                data.push(category.count);
+            }
+        }
+
+        let paymentsData = {
+            labels,
+            datasets: [{
+              data,
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(33, 121, 92)',
+                'rgb(89, 122, 92)',
+                'rgb(125, 155, 88)',
+                'rgb(78, 217, 111)',
+                'rgb(88, 134, 200)',
+                'rgb(100, 220, 155)'
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(33, 121, 92)',
+                'rgb(89, 122, 92)',
+                'rgb(125, 155, 88)',
+                'rgb(78, 217, 111)',
+                'rgb(88, 134, 200)',
+                'rgb(100, 220, 155)'
+              ],
+              borderWidth: 1
+            }]
+        };
+
+        let ctx = document.getElementById('payments-chart');
+
+        let paymentsChart = new Chart(ctx, {
+            type: 'pie',
+            data: paymentsData,
+            options 
+        });
+    }
+
+    const getIncomesChart = async function (userId, options) {
+
+        let incomesData = {
+            labels: ['Car', 'Food', 'Home', 'Shopping'],
+            datasets: [{
+              data: [12, 19, 3, 5],
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)'
+              ],
+              borderColor: [
+                'rgb(255,99,132,1)',
+                'rgb(54, 162, 235, 1)',
+                'rgb(255, 206, 86, 1)',
+                'rgb(75, 192, 192, 1)'
+              ],
+              borderWidth: 1
+            }]
+        };
+
+        let ctx = document.getElementById('incomes-chart');
+
+        let paymentsChart = new Chart(ctx, {
+            type: 'pie',
+            data: incomesData,
+            options 
+        });
+    }
+
     const getDashboard = async function(context){
 
         context.loggedIn = globalConstants.IsLoggedIn();
@@ -88,67 +200,15 @@ const dashboardController = function(){
         }).then(function(){
             this.partial('./views/dashboard/dashboard.hbs').then(function(){
                 
-                getBalanceChart(context, userId);
-
-                let paymentsData = {
-                    labels: ['Car', 'Food', 'Home', 'Shopping'],
-                    datasets: [{
-                      data: [12, 19, 3, 5],
-                      backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 206, 86)',
-                        'rgb(75, 192, 192)'
-                      ],
-                      borderColor: [
-                        'rgb(255,99,132,1)',
-                        'rgb(54, 162, 235, 1)',
-                        'rgb(255, 206, 86, 1)',
-                        'rgb(75, 192, 192, 1)'
-                      ],
-                      borderWidth: 1
-                    }]
-                };
-
-                let incomesData = {
-                    labels: ['Salary', 'Gifts', 'Rents', 'Other'],
-                    datasets: [{
-                      data: [5, 9, 13, 15],
-                      backgroundColor: [
-                        'rgb(255, 123, 142)',
-                        'rgb(154, 123, 200)',
-                        'rgb(255, 222, 123)',
-                        'rgb(175, 92, 192)'
-                      ],
-                      borderColor: [
-                        'rgb(255, 123, 142)',
-                        'rgb(154, 123, 200)',
-                        'rgb(255, 222, 123)',
-                        'rgb(175, 92, 192)'
-                      ],
-                      borderWidth: 1
-                    }]
-                };
+                getBalanceChart(userId);
 
                 let options = {
                     responsive: false,
                     cutoutPercentage: 40
                 };
 
-                let paymentsCtx = document.getElementById('payments-chart');
-                let incomesCtx = document.getElementById('incomes-chart');
-
-                let paymentsChart = new Chart(paymentsCtx, {
-                    type: 'pie',
-                    data: paymentsData,
-                    options: options 
-                });
-
-                let incomesChart = new Chart(incomesCtx, {
-                    type: 'pie',
-                    data: incomesData,
-                    options: options 
-                });
+                getPaymentsChart(userId, options);
+                getIncomesChart(userId, options);
             })
         });
     }

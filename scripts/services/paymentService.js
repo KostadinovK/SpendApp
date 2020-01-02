@@ -31,8 +31,19 @@ const paymentService = function(){
         return requester.post(url, request);
     };
 
+    const getAllByUserId = function(userId){
+        const url = baseUrl + `/payments/user/${userId}`;
+
+        const request = {
+            headers: {}
+        };
+
+        return requester.get(url, request);
+    };
+
     return {
         getAllPaymentCategories,
-        registerPayment
+        registerPayment,
+        getAllByUserId
     };
 }();
