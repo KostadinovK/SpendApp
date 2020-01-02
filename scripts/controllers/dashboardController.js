@@ -146,12 +146,23 @@ const dashboardController = function(){
         };
 
         let ctx = document.getElementById('payments-chart');
+        
+        if(data.length !== 0){
+            
+            let paymentsChart = new Chart(ctx, {
+                type: 'pie',
+                data: paymentsData,
+                options 
+            });
+        }else{
+            let parent = ctx.parentElement;
+            let header = document.createElement('h2');
+            header.textContent = 'No transactions yet';
 
-        let paymentsChart = new Chart(ctx, {
-            type: 'pie',
-            data: paymentsData,
-            options 
-        });
+            parent.removeChild(ctx);
+            parent.appendChild(header);
+        }
+        
     }
 
     const getIncomesChart = async function (userId, options) {
@@ -214,11 +225,22 @@ const dashboardController = function(){
 
         let ctx = document.getElementById('incomes-chart');
 
-        let incomesChart = new Chart(ctx, {
-            type: 'pie',
-            data: incomesData,
-            options 
-        });
+        if(data.length !== 0){
+            
+            let incomesChart = new Chart(ctx, {
+                type: 'pie',
+                data: incomesData,
+                options 
+            });
+        }else{
+            let parent = ctx.parentElement;
+            let header = document.createElement('h2');
+            header.textContent = 'No transactions yet';
+
+            parent.removeChild(ctx);
+            parent.appendChild(header);
+        }
+        
     }
 
     const getDashboard = async function(context){
