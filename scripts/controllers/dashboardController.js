@@ -1,8 +1,7 @@
 const dashboardController = function(){
     
-    const getBudget = async function(context){
+    const getBudget = async function(context, userId){
 
-        let userId = storage.getData(`${globalConstants.AuthToken}`);
         let currencyId = storage.getData('currencyId');
 
         let budget = await budgetService.getUserLastBudget(userId);
@@ -23,11 +22,63 @@ const dashboardController = function(){
         }
     }
 
+    const getBalanceChart = async function (context, userId) {
+
+        let budgets = await budgetService.getUserBudgets(userId).then(resp => resp.json()).catch(err => console.log(err));
+
+        budgets = budgets.sort((a, b) => {
+            if(a.Year > b.Year){
+                return 1;
+            }else if(a.Year < b.Year){
+                return -1;
+            }else{
+                if(a.Month > b.Month){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
+        });
+
+        let labels = [];
+        let data = [];
+
+        for (const budget of budgets) {
+            let monthName = dateHelper.getMonthName(budget.Month);
+
+            labels.push(`${monthName} ${budget.Year}`);
+            data.push(Number(budget.BudgetAmount));
+        }
+
+        let balanceContext = document.getElementById("balance-chart");
+
+        let balanceData = {
+            labels,
+            datasets: [{
+                data,
+                label: "Balance",
+                borderColor: "rgb(76, 161, 144)",
+                fill: false
+            }]
+        };
+
+        let options = {
+            responsive: false
+        };
+        
+        let lineChart = new Chart(balanceContext, {
+            type: 'line',
+            data: balanceData,
+            options
+        });
+    }
+
     const getDashboard = async function(context){
 
         context.loggedIn = globalConstants.IsLoggedIn();
+        let userId = storage.getData(`${globalConstants.AuthToken}`);
 
-        await getBudget(context);
+        await getBudget(context, userId);
         
 
         context.loadPartials({
@@ -36,18 +87,8 @@ const dashboardController = function(){
             footer: './views/common/footer.hbs'
         }).then(function(){
             this.partial('./views/dashboard/dashboard.hbs').then(function(){
-
-                let balanceContext = document.getElementById("balance-chart");
-               
-                let balanceData = {
-                    labels: ['January 2019','February 2019','March 2019','April 2019','May 2019','June 2019','July 2019','August 2019','September 2019','Octomber 2019', 'November 2019', 'December 2019'],
-                    datasets: [{ 
-                        data: [86,114,106,106,107,111,133,221,783,2478],
-                        label: "Balance",
-                        borderColor: "rgb(76, 161, 144)",
-                        fill: false
-                    }]
-                };
+                
+                getBalanceChart(context, userId);
 
                 let paymentsData = {
                     labels: ['Car', 'Food', 'Home', 'Shopping'],
@@ -93,12 +134,6 @@ const dashboardController = function(){
                     responsive: false,
                     cutoutPercentage: 40
                 };
-                
-                let lineChart = new Chart(balanceContext, {
-                    type: 'line',
-                    data: balanceData,
-                    options: options
-                });
 
                 let paymentsCtx = document.getElementById('payments-chart');
                 let incomesCtx = document.getElementById('incomes-chart');
