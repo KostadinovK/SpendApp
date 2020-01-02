@@ -38,7 +38,8 @@ const app = Sammy('#main', function(){
     this.get('#/transactions/payment/:id/delete', transactionController.getDelete);
     this.get('#/transactions/income/:id/delete', transactionController.getDelete);
 
-    this.get('#/transactions/:id/edit', transactionController.getEdit);
+    this.get('#/transactions/payment/:id/edit', transactionController.getPaymentEdit);
+    this.get('#/transactions/income/:id/edit', transactionController.getIncomeEdit);
 });
 
 (() => {

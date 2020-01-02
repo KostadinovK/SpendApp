@@ -1,22 +1,22 @@
 {{>header}}
-<form class="edit-form" action="#/stories/{{transaction.id}}/edit" method="POST">
+<form class="edit-form" action="#/transactions/{{#if transaction.PaymentCategory}}payment{{else}}income{{/if}}/{{transaction.Id}}/edit" method="POST">
     <h2>Edit A Transaction</h2>
     <p class="name">
         <label for="name"><i class="far fa-sticky-note"></i></label>
-        <input type="text" name="name" placeholder="Name" value="Box Office">
+        <input type="text" name="name" placeholder="Name" value="{{transaction.Name}}">
     </p>
     <p class="sum">
         <label for="money"><i class="fas fa-money-bill-alt"></i></label>
-        <input type="number" name="money" min="0" step="any" placeholder="Sum" value="200">
+        <input type="number" name="money" min="0" step="any" placeholder="Sum" value="{{transaction.Amount}}">
     </p>
     <p class="date">
         <label for="date"><i class="far fa-calendar"></i></label>
-        <input type="date" name="date" value="2019-12-23" >
+        <input type="date" name="date" value="{{transaction.Date}}" >
     </p>
     {{>categories}}
     <p class="notes">
         <h2>Notes</h2>
-        <textarea name="notes" cols="30" rows="5" placeholder="Notes about the Payment...">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, quod!</textarea>
+        <textarea name="notes" cols="30" rows="5" placeholder="Notes about the Payment...">{{transaction.Notes}}</textarea>
     </p>
     <input type="submit" value="Edit">
 </form>
