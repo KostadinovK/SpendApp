@@ -29,9 +29,9 @@ const dashboardController = function(){
         
         let transactions = payments.concat(incomes).sort((a, b) => {
             if(a.Date > b.Date){
-                return 1;
-            }else{
                 return -1;
+            }else{
+                return 1;
             }
         });
 
@@ -56,7 +56,7 @@ const dashboardController = function(){
             }   
         }
 
-        context.transactions = transactions;
+        context.transactions = transactions.slice(0, 20);
     }
 
     const getBalanceChart = async function (userId) {
