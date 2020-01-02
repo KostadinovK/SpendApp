@@ -1,6 +1,6 @@
 const transactionController = function(){
 
-    let getTransactionDetails = async function(context){
+    const getTransactionDetails = async function(context){
         context.loggedIn = globalConstants.IsLoggedIn();
 
         let currencyId = storage.getData('currencyId');
@@ -44,7 +44,7 @@ const transactionController = function(){
         })
     };
 
-    let getEdit = function(context){
+    const getEdit = function(context){
         context.loadPartials({
             header: './views/common/header.hbs',
             categories: './views/payments/paymentCategories.hbs',
@@ -54,8 +54,68 @@ const transactionController = function(){
         })
     };
 
+    const getDelete = async function(context){
+
+        if(context.path.includes('payment')){
+            
+            let payment = await paymentService.getPaymentById(context.params.id).then(resp => resp.json()).catch(err => console.log(err));
+            console.log(payment);
+            let year = Number(dateHelper.getYearFromTimestamp(payment.Date));
+            let month = Number(dateHelper.getMonthFromTimestamp(payment.Date));
+            let amount = Number(payment.Amount);
+
+            let res = await paymentService.deletePayment(context.params.id)
+                .then(response => response.json())
+                .catch(err => console.log(err));
+
+            if(!res.deleted){
+                context.redirect('#/transactions/payment/' + context.params.id);
+            }
+
+            let userId = storage.getData('userId');
+            let budget = await budgetService.getBudgetByUserIdYearAndMonth(userId, year, month).then(response => response.json()).catch(err => console.log(err));
+        
+            if(budget.error){
+                return null;
+            }else{
+                let newAmount = Number(budget.BudgetAmount) + amount;
+
+                await budgetService.editBudget(userId, newAmount, year, month).then(response => response.json()).catch(error => console.log(error));
+            }
+        }else{
+
+            let income = await incomeService.getIncomeById(context.params.id).then(resp => resp.json()).catch(err => console.log(err));
+
+            let year = Number(dateHelper.getYearFromTimestamp(income.Date));
+            let month = Number(dateHelper.getMonthFromTimestamp(income.Date));
+            let amount = Number(income.Amount);
+            console.log({year, month, amount});
+            let res = await incomeService.deleteIncome(context.params.id)
+                .then(response => response.json())
+                .catch(err => console.log(err));
+            console.log(res);
+            
+            if(!res.deleted){
+                context.redirect('#/transactions/income/' + context.params.id);
+            }
+
+            let userId = storage.getData('userId');
+            let budget = await budgetService.getBudgetByUserIdYearAndMonth(userId, year, month).then(response => response.json()).catch(err => console.log(err));
+            if(budget.error){
+                console.log(budget.error);
+            }else{
+                let newAmount = Number(budget.BudgetAmount) - amount;
+
+                await budgetService.editBudget(userId, newAmount, year, month).then(response => response.json()).catch(error => console.log(error));
+            }
+        }
+
+        context.redirect('#/dashboard');
+    }
+
     return {
         getTransactionDetails,
-        getEdit
+        getEdit,
+        getDelete
     };
 }();

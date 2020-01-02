@@ -51,10 +51,21 @@ const incomeService = function(){
         return requester.get(url, request);
     };
 
+    const deleteIncome = function(id){
+        const url = baseUrl + `/incomes/${id}`;
+
+        const request = {
+            headers: {}
+        };
+
+        return requester.del(url, request);
+    }
+
     return {
         getAllIncomeCategories,
         registerIncome,
         getAllByUserId,
-        getIncomeById
+        getIncomeById,
+        deleteIncome
     };
 }();

@@ -51,10 +51,21 @@ const paymentService = function(){
         return requester.get(url, request);
     };
 
+    const deletePayment = function(id){
+        const url = baseUrl + `/payments/${id}`;
+
+        const request = {
+            headers: {}
+        };
+
+        return requester.del(url, request);
+    }
+
     return {
         getAllPaymentCategories,
         registerPayment,
         getAllByUserId,
-        getPaymentById
+        getPaymentById,
+        deletePayment
     };
 }();
