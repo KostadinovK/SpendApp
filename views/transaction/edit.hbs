@@ -19,5 +19,9 @@
         <textarea name="notes" cols="30" rows="5" placeholder="Notes about the Payment...">{{transaction.Notes}}</textarea>
     </p>
     <input type="submit" value="Edit">
+    <p class="oldData" style="display: none;">
+        <input type="date" name="oldDate" value="{{transaction.Date}}" >
+        <input type="number" name="oldMoney" min="0" step="any" placeholder="Sum" value="{{transaction.Amount}}">
+    </p>
 </form>
 {{>footer}}

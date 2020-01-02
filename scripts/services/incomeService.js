@@ -51,6 +51,25 @@ const incomeService = function(){
         return requester.get(url, request);
     };
 
+    const editIncome = function(params){
+        const url = baseUrl + `/incomes/${params.id}`;
+
+        const income = {
+            amount: params.money,
+            date: params.date,
+            name: params.name,
+            categoryId: params.category,
+            userId: params.userId
+        };
+
+        const request = {
+            headers: {},
+            body: JSON.stringify(income)
+        };
+
+        return requester.put(url, request);
+    }
+
     const deleteIncome = function(id){
         const url = baseUrl + `/incomes/${id}`;
 
@@ -66,6 +85,7 @@ const incomeService = function(){
         registerIncome,
         getAllByUserId,
         getIncomeById,
+        editIncome,
         deleteIncome
     };
 }();

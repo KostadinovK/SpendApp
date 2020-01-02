@@ -74,8 +74,40 @@ const paymentController = function(){
         
     };
 
+    const getEdit = async function(context){
+        context.loggedIn = globalConstants.IsLoggedIn();
+        context.categories = await paymentService.getAllPaymentCategories().then(response => response.json()).catch(err => console.log(err));
+
+        let payment = await paymentService.getPaymentById(context.params.id).then(r => r.json()).catch(err => console.log(err));
+        
+        payment.Date = payment.Date.split('T')[0];
+
+        context.transaction = payment;
+        if(context.transaction.PaymentCategory){
+            context.transaction.category = context.transaction.PaymentCategory.Id;
+        }else{
+            context.transaction.category = context.transaction.IncomeCategory.Id;
+        };
+
+        context.loadPartials({
+            header: './views/common/header.hbs',
+            categories: './views/payments/paymentCategories.hbs',
+            category: './views/payments/paymentCategoryView.hbs',
+            footer: './views/common/footer.hbs'
+        }).then(function(){
+            this.partial('./views/transaction/edit.hbs');
+        })
+    };
+
+    const postEdit = function(context){
+    
+        console.log(context.params);
+    };
+
     return {
         getRegister,
-        postRegister
+        postRegister,
+        getEdit,
+        postEdit
     };
 }();

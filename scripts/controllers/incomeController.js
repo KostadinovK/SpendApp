@@ -74,8 +74,46 @@ const incomeController = function(){
         
     };
 
+    const getEdit = async function(context){
+
+        context.loggedIn = globalConstants.IsLoggedIn();
+        context.categories = await incomeService.getAllIncomeCategories().then(response => response.json()).catch(err => console.log(err));
+
+        let income = await incomeService.getIncomeById(context.params.id).then(r => r.json()).catch(err => console.log(err));
+        
+        income.Date = income.Date.split('T')[0];
+
+        context.transaction = income;
+        if(context.transaction.PaymentCategory){
+            context.transaction.category = context.transaction.PaymentCategory.Id;
+        }else{
+            context.transaction.category = context.transaction.IncomeCategory.Id;
+        };
+
+        context.loadPartials({
+            header: './views/common/header.hbs',
+            categories: './views/incomes/categories.hbs',
+            category: './views/incomes/incomeCategoryView.hbs',
+            footer: './views/common/footer.hbs'
+        }).then(function(){
+            this.partial('./views/transaction/edit.hbs');
+        })
+    };
+
+    const postEdit = function(context){
+    
+        console.log(context.params);
+        //income.Date = income.Date.split('T')[0];
+
+        
+
+        //context.redirect('#/dashboard');
+    };
+
     return {
         getRegister,
-        postRegister
+        postRegister,
+        getEdit,
+        postEdit
     };
 }();

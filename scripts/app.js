@@ -38,8 +38,11 @@ const app = Sammy('#main', function(){
     this.get('#/transactions/payment/:id/delete', transactionController.getDelete);
     this.get('#/transactions/income/:id/delete', transactionController.getDelete);
 
-    this.get('#/transactions/payment/:id/edit', transactionController.getPaymentEdit);
-    this.get('#/transactions/income/:id/edit', transactionController.getIncomeEdit);
+    this.get('#/transactions/payment/:id/edit', paymentController.getEdit);
+    this.get('#/transactions/income/:id/edit', incomeController.getEdit);
+
+    this.post('#/transactions/payment/:id/edit', paymentController.postEdit);
+    this.post('#/transactions/income/:id/edit', incomeController.postEdit);
 });
 
 (() => {
