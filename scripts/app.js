@@ -10,7 +10,8 @@ const app = Sammy('#main', function(){
 
     //Timeline
     this.get('#/timeline', timelineController.getTimeline);
-    this.post('#/timeline', timelineController.getStats);
+    this.post('#/timeline', timelineController.postTimeline);
+    this.get('#/timeline/stats', timelineController.getStats);
 
     //Login
     this.get('#/login', userController.getLogin);
