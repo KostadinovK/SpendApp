@@ -64,6 +64,142 @@ const timelineController = function(){
         context.transactions = transactions.slice(0, 20);
     }
 
+    const getCategoriesData = function(categories){
+        let res = [];
+
+        for (const category of categories) {
+            let data = {};
+            data.name = category.Name;
+            data.id = category.Id;
+            data.count = 0;
+            res.push(data);
+        }
+
+        return res;
+    }
+
+    const getPieChart = function(context, labels, data, options){
+
+        if(data.length === 0){
+
+            let parent = context.parentElement;
+            let header = document.createElement('h2');
+            header.textContent = 'No transactions yet';
+
+            parent.removeChild(context);
+            parent.appendChild(header);
+            return;
+        }
+
+        let chartData = {
+            labels,
+            datasets: [{
+              data,
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(33, 121, 92)',
+                'rgb(89, 122, 92)',
+                'rgb(125, 155, 88)',
+                'rgb(78, 217, 111)',
+                'rgb(88, 134, 200)',
+                'rgb(100, 220, 155)'
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(33, 121, 92)',
+                'rgb(89, 122, 92)',
+                'rgb(125, 155, 88)',
+                'rgb(78, 217, 111)',
+                'rgb(88, 134, 200)',
+                'rgb(100, 220, 155)'
+              ],
+              borderWidth: 1
+            }]
+        };
+
+        let chart = new Chart(context, {
+            type: 'pie',
+            data: chartData,
+            options 
+        });
+    };
+
+    const getPaymentsChart = async function (userId, options, filter = null, domElementId) {
+
+        let paymentsCategories = await paymentService.getAllPaymentCategories().then(r => r.json()).catch(err => console.log(err));
+
+        let categoriesData = getCategoriesData(paymentsCategories);
+
+        let payments = await paymentService.getAllByUserId(userId).then(r => r.json()).catch(err => console.log(err));
+
+        if(filter !== null){
+            payments = payments.filter(filter);
+        }
+
+        let ctx = document.getElementById(domElementId);
+
+        for (const payment of payments) {
+            for (const category of categoriesData) {
+                if(payment.CategoryId === category.id){
+                    category.count++;
+                }
+            }
+        }
+        
+        let labels = [];
+        let data = [];
+
+        for (const category of categoriesData) {
+            if(category.count > 0){
+                labels.push(category.name);
+                data.push(category.count);
+            }
+        }
+
+        getPieChart(ctx, labels, data, options);
+    }
+
+    const getIncomesChart = async function (userId, options, filter = null, domElementId) {
+
+        let incomesCategories = await incomeService.getAllIncomeCategories().then(r => r.json()).catch(err => console.log(err));
+
+        let categoriesData = getCategoriesData(incomesCategories);
+
+        let incomes = await incomeService.getAllByUserId(userId).then(r => r.json()).catch(err => console.log(err));
+
+        if(filter !== null){
+            incomes = incomes.filter(filter);
+        }
+
+        let ctx = document.getElementById(domElementId);
+
+        for (const income of incomes) {
+            for (const category of categoriesData) {
+                if(income.CategoryId === category.id){
+                    category.count++;
+                }
+            }
+        }
+        
+        let labels = [];
+        let data = [];
+
+        for (const category of categoriesData) {
+            if(category.count > 0){
+                labels.push(category.name);
+                data.push(category.count);
+            }
+        }
+
+        getPieChart(ctx, labels, data, options);
+    }
+
     const getStats = async function(context){
         context.loggedIn = globalConstants.IsLoggedIn();
 
@@ -96,94 +232,45 @@ const timelineController = function(){
         }).then(function(){
             this.partial('./views/timeline/stats.hbs')
             .then(function(){
-                let paymentsData = {
-                    labels: ['Car', 'Food', 'Home', 'Shopping'],
-                    datasets: [{
-                      data: [12, 19, 3, 5],
-                      backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 206, 86)',
-                        'rgb(75, 192, 192)'
-                      ],
-                      borderColor: [
-                        'rgb(255,99,132,1)',
-                        'rgb(54, 162, 235, 1)',
-                        'rgb(255, 206, 86, 1)',
-                        'rgb(75, 192, 192, 1)'
-                      ],
-                      borderWidth: 1
-                    }]
-                };
-
-                let incomesData = {
-                    labels: ['Salary', 'Gifts', 'Rents', 'Other'],
-                    datasets: [{
-                      data: [5, 9, 13, 15],
-                      backgroundColor: [
-                        'rgb(255, 123, 142)',
-                        'rgb(154, 123, 200)',
-                        'rgb(255, 222, 123)',
-                        'rgb(175, 92, 192)'
-                      ],
-                      borderColor: [
-                        'rgb(255, 123, 142)',
-                        'rgb(154, 123, 200)',
-                        'rgb(255, 222, 123)',
-                        'rgb(175, 92, 192)'
-                      ],
-                      borderWidth: 1
-                    }]
-                };
-
                 let options = {
                     responsive: false,
                     cutoutPercentage: 40
                 };
-                let paymentYearlyCtx = document.getElementById('payments-stats-yearly');
-                let incomesYearlyCtx = document.getElementById('incomes-stats-yearly');
+                let date = storage.getData('date');
 
-                let paymentsMonthlyCtx = document.getElementById('payments-stats-monthly');
-                let incomesMonthlyCtx = document.getElementById('incomes-stats-monthly');
+                let year = Number(dateHelper.getYearFromTimestamp(date));
+                let month = Number(dateHelper.getMonthFromTimestamp(date));
+                let day = Number(dateHelper.getDayFromTimestamp(date));
 
-                let paymentsDailyCtx = document.getElementById('payments-stats-daily');
-                let incomesDailyCtx = document.getElementById('incomes-stats-daily');
+                let dailyFilter = t => {
+                    let tYear = Number(dateHelper.getYearFromTimestamp(t.Date));
+                    let tMonth = Number(dateHelper.getMonthFromTimestamp(t.Date));
+                    let tDay = Number(dateHelper.getDayFromTimestamp(t.Date));
+                    
+                    return year === tYear && month === tMonth && day === tDay;
+                };
 
-                let paymentsYearlyChart = new Chart(paymentYearlyCtx, {
-                    type: 'pie',
-                    data: paymentsData,
-                    options: options 
-                });
+                let monthlyFilter = t => {
+                    let tYear = Number(dateHelper.getYearFromTimestamp(t.Date));
+                    let tMonth = Number(dateHelper.getMonthFromTimestamp(t.Date));
+                    
+                    return year === tYear && month === tMonth;
+                };
 
-                let incomesYearlyChart = new Chart(incomesYearlyCtx, {
-                    type: 'pie',
-                    data: incomesData,
-                    options: options 
-                });
+                let yearlyFilter = t => {
+                    let tYear = Number(dateHelper.getYearFromTimestamp(t.Date));
+                    
+                    return year === tYear;
+                };
 
-                let paymentsMonthlyChart = new Chart(paymentsMonthlyCtx, {
-                    type: 'pie',
-                    data: paymentsData,
-                    options: options 
-                });
+                getPaymentsChart(userId, options, dailyFilter, 'payments-stats-daily');
+                getIncomesChart(userId, options, dailyFilter, 'incomes-stats-daily');
 
-                let incomesMonthlyChart = new Chart(incomesMonthlyCtx, {
-                    type: 'pie',
-                    data: incomesData,
-                    options: options 
-                });
+                getPaymentsChart(userId, options, monthlyFilter, 'payments-stats-monthly');
+                getIncomesChart(userId, options, monthlyFilter, 'incomes-stats-monthly');
 
-                let paymentsDailyChart = new Chart(paymentsDailyCtx, {
-                    type: 'pie',
-                    data: paymentsData,
-                    options: options 
-                });
-
-                let incomesDailyChart = new Chart(incomesDailyCtx, {
-                    type: 'pie',
-                    data: incomesData,
-                    options: options 
-                });
+                getPaymentsChart(userId, options, yearlyFilter, 'payments-stats-yearly');
+                getIncomesChart(userId, options, yearlyFilter, 'incomes-stats-yearly');
             });
         });
     }
