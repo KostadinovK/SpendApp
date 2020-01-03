@@ -64,142 +64,6 @@ const timelineController = function(){
         context.transactions = transactions.slice(0, 20);
     }
 
-    const getCategoriesData = function(categories){
-        let res = [];
-
-        for (const category of categories) {
-            let data = {};
-            data.name = category.Name;
-            data.id = category.Id;
-            data.count = 0;
-            res.push(data);
-        }
-
-        return res;
-    }
-
-    const getPieChart = function(context, labels, data, options){
-
-        if(data.length === 0){
-
-            let parent = context.parentElement;
-            let header = document.createElement('h2');
-            header.textContent = 'No transactions yet';
-
-            parent.removeChild(context);
-            parent.appendChild(header);
-            return;
-        }
-
-        let chartData = {
-            labels,
-            datasets: [{
-              data,
-              backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(33, 121, 92)',
-                'rgb(89, 122, 92)',
-                'rgb(125, 155, 88)',
-                'rgb(78, 217, 111)',
-                'rgb(88, 134, 200)',
-                'rgb(100, 220, 155)'
-              ],
-              borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(33, 121, 92)',
-                'rgb(89, 122, 92)',
-                'rgb(125, 155, 88)',
-                'rgb(78, 217, 111)',
-                'rgb(88, 134, 200)',
-                'rgb(100, 220, 155)'
-              ],
-              borderWidth: 1
-            }]
-        };
-
-        let chart = new Chart(context, {
-            type: 'pie',
-            data: chartData,
-            options 
-        });
-    };
-
-    const getPaymentsChart = async function (userId, options, filter = null, domElementId) {
-
-        let paymentsCategories = await paymentService.getAllPaymentCategories().then(r => r.json()).catch(err => console.log(err));
-
-        let categoriesData = getCategoriesData(paymentsCategories);
-
-        let payments = await paymentService.getAllByUserId(userId).then(r => r.json()).catch(err => console.log(err));
-
-        if(filter !== null){
-            payments = payments.filter(filter);
-        }
-
-        let ctx = document.getElementById(domElementId);
-
-        for (const payment of payments) {
-            for (const category of categoriesData) {
-                if(payment.CategoryId === category.id){
-                    category.count++;
-                }
-            }
-        }
-        
-        let labels = [];
-        let data = [];
-
-        for (const category of categoriesData) {
-            if(category.count > 0){
-                labels.push(category.name);
-                data.push(category.count);
-            }
-        }
-
-        getPieChart(ctx, labels, data, options);
-    }
-
-    const getIncomesChart = async function (userId, options, filter = null, domElementId) {
-
-        let incomesCategories = await incomeService.getAllIncomeCategories().then(r => r.json()).catch(err => console.log(err));
-
-        let categoriesData = getCategoriesData(incomesCategories);
-
-        let incomes = await incomeService.getAllByUserId(userId).then(r => r.json()).catch(err => console.log(err));
-
-        if(filter !== null){
-            incomes = incomes.filter(filter);
-        }
-
-        let ctx = document.getElementById(domElementId);
-
-        for (const income of incomes) {
-            for (const category of categoriesData) {
-                if(income.CategoryId === category.id){
-                    category.count++;
-                }
-            }
-        }
-        
-        let labels = [];
-        let data = [];
-
-        for (const category of categoriesData) {
-            if(category.count > 0){
-                labels.push(category.name);
-                data.push(category.count);
-            }
-        }
-
-        getPieChart(ctx, labels, data, options);
-    }
-
     const getStats = async function(context){
         context.loggedIn = globalConstants.IsLoggedIn();
 
@@ -263,14 +127,14 @@ const timelineController = function(){
                     return year === tYear;
                 };
 
-                getPaymentsChart(userId, options, dailyFilter, 'payments-stats-daily');
-                getIncomesChart(userId, options, dailyFilter, 'incomes-stats-daily');
+                chartService.getPaymentsChart(userId, options, dailyFilter, 'payments-stats-daily');
+                chartService.getIncomesChart(userId, options, dailyFilter, 'incomes-stats-daily');
 
-                getPaymentsChart(userId, options, monthlyFilter, 'payments-stats-monthly');
-                getIncomesChart(userId, options, monthlyFilter, 'incomes-stats-monthly');
+                chartService.getPaymentsChart(userId, options, monthlyFilter, 'payments-stats-monthly');
+                chartService.getIncomesChart(userId, options, monthlyFilter, 'incomes-stats-monthly');
 
-                getPaymentsChart(userId, options, yearlyFilter, 'payments-stats-yearly');
-                getIncomesChart(userId, options, yearlyFilter, 'incomes-stats-yearly');
+                chartService.getPaymentsChart(userId, options, yearlyFilter, 'payments-stats-yearly');
+                chartService.getIncomesChart(userId, options, yearlyFilter, 'incomes-stats-yearly');
             });
         });
     }
