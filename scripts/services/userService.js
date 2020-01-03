@@ -1,6 +1,6 @@
 const userService = function(){
 
-    const baseUrl = `https://${globalConstants.ApiAdress}:${globalConstants.ApiPort}/users`;
+    const baseUrl = `http://${globalConstants.ApiAdress}:${globalConstants.ApiPort}/users`;
 
     const register = function(params){
         const url = baseUrl;
