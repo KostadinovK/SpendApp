@@ -1,6 +1,6 @@
 const budgetService = function(){
 
-    const baseUrl = `http://${globalConstants.ApiAdress}:${globalConstants.ApiPort}/budgets`;
+    const baseUrl = `https://${globalConstants.ApiAdress}:${globalConstants.ApiPort}/budgets`;
 
     const addBudget = function(userId, amount, year, month){
         const url = baseUrl;

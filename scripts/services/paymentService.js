@@ -1,6 +1,6 @@
 const paymentService = function(){
 
-    const baseUrl = `http://${globalConstants.ApiAdress}:${globalConstants.ApiPort}`;
+    const baseUrl = `https://${globalConstants.ApiAdress}:${globalConstants.ApiPort}`;
 
     const getAllPaymentCategories = function(){
         const url = baseUrl + '/paymentCategories';
