@@ -55,39 +55,7 @@ const paymentController = function(){
             let year = Number(dateHelper.getYearFromTimestamp(paymentDate));
             let month = Number(dateHelper.getMonthFromTimestamp(paymentDate));
 
-            let budget = await budgetService.getBudgetByUserIdYearAndMonth(userId, year, month).then(response => response.json()).catch(err => console.log(err));
-            
-            let startYear;
-            let startMonth;
-            if (budget.error) {
-                let lastBudget = await budgetService.getUserLastBudgetBeforeDate(userId, year, month);
-
-                if (lastBudget === null) {
-                    await budgetService.addBudget(userId, 0, year, month).then(response => response.json()).catch(error => console.log(error));
-                    
-                }else{
-                    await budgetService.addBudget(userId, Number(lastBudget.BudgetAmount), year, month).then(response => response.json()).catch(error => console.log(error));
-                }
-
-                startYear = year;
-                startMonth = month;
-
-            }else{
-                startYear = budget.Year;
-                startMonth = budget.Month;
-            }
-
-            let startDate = new Date(startYear, startMonth - 1);
-
-            let budgets = await budgetService.getUserBudgets(userId).then(response => response.json()).catch(err => console.log(err));
-
-            budgets = budgets.filter(b => {
-                let budgetDate = new Date(b.Year, b.Month - 1);
-
-                return budgetDate.getTime() >= startDate.getTime();
-            });
-
-            console.log(budgets);
+            let budgets = await budgetService.getAllBudgetsForEdit(userId, year, month, paymentAmount);
 
             for (const budget of budgets) {
                 let amount = Number(budget.BudgetAmount);
