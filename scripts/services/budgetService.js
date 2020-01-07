@@ -82,11 +82,42 @@ const budgetService = function(){
         return budgets[0];
     }
 
+    const getUserLastBudgetBeforeDate = async function(userId, year, month){
+        let budgets = await getUserBudgets(userId).then(response => response.json()).catch(err => console.log(err));
+
+        budgets = budgets.filter(b => {
+            if(b.Year < year) return true;
+            if(b.Year === year && b.Month < month) return true;
+            return false;
+        });
+
+        if(budgets.length === 0){
+            return null;
+        }
+
+        budgets = budgets.sort((a, b) => {
+            if(a.Year > b.Year){
+                return -1;
+            }else if(a.Year < b.Year){
+                return 1;
+            }else{
+                if(a.Month > b.Month){
+                    return -1;
+                }else{
+                    return 1;
+                }
+            }
+        });
+
+        return budgets[0];
+    }
+
     return {
         addBudget,
         getBudgetByUserIdYearAndMonth,
         editBudget,
         getUserBudgets,
-        getUserLastBudget
+        getUserLastBudget,
+        getUserLastBudgetBeforeDate
     };
 }();

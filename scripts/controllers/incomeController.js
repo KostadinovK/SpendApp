@@ -48,27 +48,52 @@ const incomeController = function(){
         .then(async response => {
             let res = await response.json();
 
-            let amount = Number(res.Amount);
             let userId = res.UserId;
-            let year = Number(dateHelper.getYearFromTimestamp(res.Date));
-            let month = Number(dateHelper.getMonthFromTimestamp(res.Date));
+            let incomeDate = res.Date;
+            let incomeAmount = Number(res.Amount);
+
+            let year = Number(dateHelper.getYearFromTimestamp(incomeDate));
+            let month = Number(dateHelper.getMonthFromTimestamp(incomeDate));
 
             let budget = await budgetService.getBudgetByUserIdYearAndMonth(userId, year, month).then(response => response.json()).catch(err => console.log(err));
-        
-            if(budget.error){
-                let lastBudget = await budgetService.getUserLastBudget(userId);
-                
-                if(lastBudget === null){
-                    await budgetService.addBudget(userId, amount, year, month).then(response => response.json()).catch(error => console.log(error));
-                }else{
-                    let oldAmount = Number(lastBudget.BudgetAmount);
-                    await budgetService.addBudget(userId, amount + oldAmount, year, month).then(response => response.json()).catch(error => console.log(error));
-                }
-            }else{
-                let oldAmount = Number(budget.BudgetAmount);
+            
+            let startYear;
+            let startMonth;
+            if (budget.error) {
+                let lastBudget = await budgetService.getUserLastBudgetBeforeDate(userId, year, month);
 
-                await budgetService.editBudget(userId, amount + oldAmount, year, month).then(response => response.json()).catch(error => console.log(error));
+                if (lastBudget === null) {
+                    await budgetService.addBudget(userId, 0, year, month).then(response => response.json()).catch(error => console.log(error));
+                    
+                }else{
+                    await budgetService.addBudget(userId, Number(lastBudget.BudgetAmount), year, month).then(response => response.json()).catch(error => console.log(error));
+                }
+
+                startYear = year;
+                startMonth = month;
+
+            }else{
+                startYear = budget.Year;
+                startMonth = budget.Month;
             }
+
+            let startDate = new Date(startYear, startMonth - 1);
+
+            let budgets = await budgetService.getUserBudgets(userId).then(response => response.json()).catch(err => console.log(err));
+
+            budgets = budgets.filter(b => {
+                let budgetDate = new Date(b.Year, b.Month - 1);
+
+                return budgetDate.getTime() >= startDate.getTime();
+            });
+            
+            for (const budget of budgets) {
+                let amount = Number(budget.BudgetAmount);
+                amount += incomeAmount;
+
+                await budgetService.editBudget(budget.UserId, amount, budget.Year, budget.Month).then(response => response.json()).catch(error => console.log(error));
+            }
+            
             context.redirect('#/home');
         });
         

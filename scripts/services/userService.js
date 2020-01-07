@@ -37,6 +37,16 @@ const userService = function(){
         return requester.post(url, request);
     }
 
+    const getUser = function(userId){
+        const url = baseUrl + '/' + userId;
+
+        const request = {
+            headers: {}
+        };
+
+        return requester.get(url, request);
+    }
+
     const logout = function(){
         const url = baseUrl + '/logout';
 
@@ -50,6 +60,7 @@ const userService = function(){
     return {
         register,
         login,
+        getUser,
         logout
     };
 }();
