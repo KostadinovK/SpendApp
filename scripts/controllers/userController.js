@@ -129,12 +129,12 @@ const userController = function(){
             let year = dateHelper.getYearFromTimestamp(res.RegisterTimestamp);
             let month = dateHelper.getMonthFromTimestamp(res.RegisterTimestamp);
             
-            if(Number(res.BudgetAmount) < 0){
+            if(context.params.budget < 0){
                 context.redirect('#/register');
                 return;
             }
 
-            budgetService.addBudget(res.Id, res.BudgetAmount, year, month)
+            budgetService.addBudget(res.Id, context.params.budget, year, month)
             .then(async response => {
                 await response.json();
                 context.redirect('#/login');

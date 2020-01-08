@@ -9,7 +9,6 @@ const userService = function(){
             username: params.username,
             password: params.password,
             confirmPassword: params.confirmPassword,
-            budget: params.budget,
             currency: params.currency
         };
 
