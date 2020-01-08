@@ -46,13 +46,15 @@ const transactionController = function(){
 
     const getDelete = async function(context){
 
+        let userId = storage.getData('userId');
+        
         if(context.path.includes('payment')){
             
             let payment = await paymentService.getPaymentById(context.params.id).then(resp => resp.json()).catch(err => console.log(err));
-            console.log(payment);
+           
             let year = Number(dateHelper.getYearFromTimestamp(payment.Date));
             let month = Number(dateHelper.getMonthFromTimestamp(payment.Date));
-            let amount = Number(payment.Amount);
+            let paymentAmount = Number(payment.Amount);
 
             let res = await paymentService.deletePayment(context.params.id)
                 .then(response => response.json())
@@ -60,17 +62,16 @@ const transactionController = function(){
 
             if(!res.deleted){
                 context.redirect('#/transactions/payment/' + context.params.id);
+                return;
             }
 
-            let userId = storage.getData('userId');
-            let budget = await budgetService.getBudgetByUserIdYearAndMonth(userId, year, month).then(response => response.json()).catch(err => console.log(err));
-        
-            if(budget.error){
-                return null;
-            }else{
-                let newAmount = Number(budget.BudgetAmount) + amount;
+            let budgets = await budgetService.getAllBudgetsForEdit(userId, year, month);
 
-                await budgetService.editBudget(userId, newAmount, year, month).then(response => response.json()).catch(error => console.log(error));
+            for (const budget of budgets) {
+                let amount = Number(budget.BudgetAmount);
+                amount += paymentAmount;
+
+                await budgetService.editBudget(budget.UserId, amount, budget.Year, budget.Month).then(response => response.json()).catch(error => console.log(error));
             }
         }else{
 
@@ -78,7 +79,7 @@ const transactionController = function(){
 
             let year = Number(dateHelper.getYearFromTimestamp(income.Date));
             let month = Number(dateHelper.getMonthFromTimestamp(income.Date));
-            let amount = Number(income.Amount);
+            let incomeAmount = Number(income.Amount);
             
             let res = await incomeService.deleteIncome(context.params.id)
                 .then(response => response.json())
@@ -86,16 +87,16 @@ const transactionController = function(){
 
             if(!res.deleted){
                 context.redirect('#/transactions/income/' + context.params.id);
+                return;
             }
 
-            let userId = storage.getData('userId');
-            let budget = await budgetService.getBudgetByUserIdYearAndMonth(userId, year, month).then(response => response.json()).catch(err => console.log(err));
-            if(budget.error){
-                console.log(budget.error);
-            }else{
-                let newAmount = Number(budget.BudgetAmount) - amount;
+            let budgets = await budgetService.getAllBudgetsForEdit(userId, year, month);
 
-                await budgetService.editBudget(userId, newAmount, year, month).then(response => response.json()).catch(error => console.log(error));
+            for (const budget of budgets) {
+                let amount = Number(budget.BudgetAmount);
+                amount -= incomeAmount;
+
+                await budgetService.editBudget(budget.UserId, amount, budget.Year, budget.Month).then(response => response.json()).catch(error => console.log(error));
             }
         }
 
