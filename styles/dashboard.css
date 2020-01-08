@@ -52,8 +52,13 @@
     color: var(--site-main-color);
 }
 
+.charts-wrapper .payments-wrapper,
+.charts-wrapper .incomes-wrapper{
+    flex: 0 0 50%;
+}
 canvas.transaction-chart{
-    flex: 0 0 40%;
+    text-align: center;
+    margin: 0 auto;
     width: 400px;
     height: 400px;
 }
