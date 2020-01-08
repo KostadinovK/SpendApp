@@ -219,7 +219,7 @@ form input[type="submit"]:hover{
     display: flex;
     flex: 0 0 100%;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin-top: 2rem;
 }
 
