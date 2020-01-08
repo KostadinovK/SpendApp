@@ -59,7 +59,6 @@ const userController = function(){
 
                 return t.IsInFuture === true && tDate.getTime() <= date.getTime();
             });
-            console.log(transactions);
 
             for (const transaction of transactions) {
                 transaction.IsInFuture = false;
