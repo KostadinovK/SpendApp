@@ -61,6 +61,7 @@ const paymentService = function(){
             name: params.name,
             notes: params.notes,
             categoryId: params.category,
+            isInFuture: params.isInFuture,
             userId: params.userId
         };
         

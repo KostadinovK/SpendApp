@@ -43,6 +43,54 @@ const userController = function(){
             storage.saveData(`${globalConstants.AuthToken}`, res.Id);
             storage.saveData(`currencyId`, res.CurrencyId);
 
+            let payments = await paymentService.getAllByUserId(res.Id).then(resp => resp.json()).catch(err => console.log(err));
+            let incomes = await incomeService.getAllByUserId(res.Id).then(resp => resp.json()).catch(err => console.log(err));
+
+            let date = new Date();
+
+            let transactions = payments.concat(incomes);
+            
+            transactions = transactions.filter(t => {
+                let tYear = Number(dateHelper.getYearFromTimestamp(t.Date));
+                let tMonth = Number(dateHelper.getMonthFromTimestamp(t.Date)) - 1;
+                let tDay = Number(dateHelper.getDayFromTimestamp(t.Date));
+
+                let tDate = new Date(tYear, tMonth, tDay);
+
+                return t.IsInFuture === true && tDate.getTime() <= date.getTime();
+            });
+            console.log(transactions);
+
+            for (const transaction of transactions) {
+                transaction.IsInFuture = false;
+                
+                let params = {
+                    id: transaction.Id,
+                    money: Number(transaction.Amount),
+                    date: transaction.Date,
+                    name: transaction.Name,
+                    notes: transaction.Notes,
+                    category: transaction.CategoryId,
+                    isInFuture: transaction.IsInFuture,
+                    userId: res.Id
+                };
+
+                if (transaction.PaymentCategory) {
+
+                    await paymentService.editPayment(params)
+                        .then(response => {
+                            response.json();
+                        })
+                        .catch(err => console.log(err));
+                } else {
+                    await incomeService.editIncome(params)
+                        .then(response => {
+                            response.json();
+                        })
+                        .catch(err => console.log(err));
+                }
+            }
+
             context.redirect("#/home");
         })
         .catch(err => console.log(err));
