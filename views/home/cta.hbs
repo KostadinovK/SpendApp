@@ -2,8 +2,10 @@
 <section class="cta">
     {{#if loggedIn}}
     <h2>Welcome back, <span class="username">{{username}}</span></h2>
-    <a href="#/incomes/register">Register Income</a>
-    <a href="#/payments/register">Register Payment</a>
+    <div class="buttons">
+        <a href="#/incomes/register">Register Income</a>
+        <a href="#/payments/register">Register Payment</a>
+    </div>
     {{else}}
     <h2>Saving More For Things That Matter</h2>
     <h3>We Made Financial Management Easy</h3>

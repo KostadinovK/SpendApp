@@ -315,9 +315,13 @@ form input[type="submit"]:hover{
         flex: 0 0 50%;
     }
 
-    .transaction-register p.category,
-    .edit-form p.category{
-        flex: 0 0 70%;
+    .transaction-register .categories{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .transaction-register p.category{
+        flex: 0 0 80%;
         margin-bottom: 1rem;
     }
 
