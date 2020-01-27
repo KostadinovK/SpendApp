@@ -1,5 +1,5 @@
 const globalConstants = function(){
-    const ApiAdress = "104.248.45.128";
+    const ApiAdress = "localhost";
     const ApiPort = 5000;
     const AuthToken = "userId";
     const UsernameToken = "username";

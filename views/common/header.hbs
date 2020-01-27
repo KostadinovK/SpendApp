@@ -1,5 +1,10 @@
 <header class="site-header">
-    <a href="#/home" class="logo">SpendApp</a>
+    {{#if loggedIn}}
+        <a href="#/dashboard" class="logo">SpendApp</a>
+    {{else}}
+        <a href="#/home" class="logo">SpendApp</a>
+    {{/if}}
+
     <input type="checkbox" name="toggle" id="toggle" class="nav-toggle">
     <nav>
         <label for="toggle"><span class="close">X Close </span><span class="open"><i class="fas fa-bars"></i>

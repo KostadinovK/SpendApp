@@ -90,7 +90,7 @@ const userController = function(){
                 }
             }
 
-            context.redirect("#/home");
+            context.redirect("#/dashboard");
         })
         .catch(err => console.log(err));
     }

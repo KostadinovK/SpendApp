@@ -98,7 +98,8 @@ const dashboardController = function(){
     const getDashboard = async function(context){
 
         context.loggedIn = globalConstants.IsLoggedIn();
-
+        context.username = storage.getData(`${globalConstants.UsernameToken}`);
+        
         let userId = storage.getData(`${globalConstants.AuthToken}`);
         let currencyId = storage.getData('currencyId');
     
