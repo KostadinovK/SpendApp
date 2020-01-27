@@ -214,8 +214,7 @@ form input[type="submit"]:hover{
     margin-top: 2rem;
 }
 
-.transaction-register .categories,
-.edit-form .categories{
+.transaction-register .categories{
     display: flex;
     flex: 0 0 100%;
     flex-wrap: wrap;
@@ -223,14 +222,12 @@ form input[type="submit"]:hover{
     margin-top: 2rem;
 }
 
-.transaction-register p.category,
-.edit-form p.category{
+.transaction-register p.category{
     flex: 0 0 40%;
     display: flex;
 }
 
-.transaction-register p.category label,
-.edit-form p.category label{
+.transaction-register p.category label{
     flex: 0 0 100%;
     border: 1px solid var(--site-main-color);
     padding: 1rem 0rem;
@@ -240,39 +237,33 @@ form input[type="submit"]:hover{
     font-size: 1.4rem;
 }
 
-.transaction-register p.category input,
-.edit-form p.category input{
+.transaction-register p.category input{
     margin: 0;
     opacity: 0;
     pointer-events: none;
     position: absolute;
 }
 
-.transaction-register p.category label i,
-.edit-form p.category label i{
+.transaction-register p.category label i{
     margin-right: 1rem;
 }
 
-.transaction-register p.category label:hover,
-.edit-form p.category label:hover{
+.transaction-register p.category label:hover{
     cursor: pointer;
     background: var(--site-main-color);
     color: var(--site-second-color);
 }
 
-.transaction-register p.category label:hover i,
-.edit-form p.category label:hover i{
+.transaction-register p.category label:hover i{
     color: var(--site-second-color);
 }
 
-.transaction-register p.category input:checked + label,
-.edit-form p.category input:checked + label{
+.transaction-register p.category input:checked + label{
     background: var(--site-main-color);
     color: var(--site-second-color);
 }
 
-.transaction-register p.category input:checked + label i,
-.edit-form p.category input:checked + label i{
+.transaction-register p.category input:checked + label i{
     color: var(--site-second-color);
 }
 
@@ -310,8 +301,7 @@ form input[type="submit"]:hover{
         padding: 1rem;
     }
 
-    .transaction-register p.date input,
-    .edit-form p.date input{
+    .transaction-register p.date input{
         flex: 0 0 50%;
     }
 
