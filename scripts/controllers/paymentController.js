@@ -63,7 +63,7 @@ const paymentController = function(){
 
                 await budgetService.editBudget(budget.UserId, amount, budget.Year, budget.Month).then(response => response.json()).catch(error => console.log(error));
             }
-            context.redirect('#/home');
+            context.redirect('#/dashboard');
         });
         
     };
