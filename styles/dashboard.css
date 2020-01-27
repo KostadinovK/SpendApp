@@ -1,3 +1,40 @@
+.dashboard-hello{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.dashboard-hello h2{
+    text-transform: capitalize;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+.dashboard-hello a{
+    text-decoration: none;
+    color: var(--site-second-color);
+    padding: 1.4rem;
+    background: var(--site-main-color);
+    border: 2px solid var(--site-main-color);
+    border-radius: 10px;
+    font-size: 1.3rem;
+    opacity: 1;
+}
+
+.dashboard-hello a:hover{
+    background: var(--site-second-color);
+    color: var(--site-main-color);
+    border: 2px solid var(--site-main-color);
+    cursor: pointer;
+}
+
+.dashboard-hello span.username{
+    color: var(--site-main-color);
+    text-transform: none;
+    font-size: 4rem;
+}
+
 .title{
     margin-top: 3rem;
     text-align: center;
@@ -65,6 +102,22 @@ canvas.transaction-chart{
 }
 
 @media(max-width: 900px){
+    .dashboard-hello{
+        width: 100%;
+        padding: 1rem 0;
+    }
+
+    .dashboard-hello .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    .dashboard-hello a {
+        flex: 0 0 60%;
+        margin-bottom: 2rem;
+    }
+    
     .title {
         font-size: 2rem;
     }
