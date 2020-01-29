@@ -3,6 +3,16 @@ const timelineController = function(){
     const getTimeline = function(context){
         context.loggedIn = globalConstants.IsLoggedIn();
         
+        let date = new Date();
+
+        let monthStr = `${date.getMonth() + 1}`;
+
+        if(date.getMonth() + 1 < 10){
+            monthStr = `0${date.getMonth() + 1}`;
+        }
+        
+        context.date = `${date.getFullYear()}-${monthStr}-01`;
+
         context.loadPartials({
             header: './views/common/header.hbs',
             footer: './views/common/footer.hbs'
