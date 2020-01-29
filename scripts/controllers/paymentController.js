@@ -27,12 +27,19 @@ const paymentController = function(){
 
         let date = new Date();
 
+        let dayStr = `${date.getDate()}`;
+        let monthStr = `${date.getMonth() + 1}`;
+
+        if(date.getDate() < 10){
+            dayStr = `0${date.getDate()}`;
+        }
+
         if(date.getMonth() + 1 < 10){
-            context.date = `${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`;
-        }else{
-            context.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+            monthStr = `0${date.getMonth() + 1}`;
         }
         
+        context.date = `${date.getFullYear()}-${monthStr}-${dayStr}`;
+
         context.loadPartials({
             header: './views/common/header.hbs',
             categories: './views/payments/paymentCategories.hbs',
