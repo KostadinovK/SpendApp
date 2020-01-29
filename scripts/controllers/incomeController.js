@@ -25,6 +25,14 @@ const incomeController = function(){
         context.loggedIn = globalConstants.IsLoggedIn();
         context.categories = await incomeService.getAllIncomeCategories().then(response => response.json()).catch(err => console.log(err));
         
+        let date = new Date();
+
+        if(date.getMonth() + 1 < 10){
+            context.date = `${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`;
+        }else{
+            context.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        }
+
         context.loadPartials({
             header: './views/common/header.hbs',
             categories: './views/incomes/categories.hbs',
