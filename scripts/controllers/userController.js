@@ -98,8 +98,16 @@ const userController = function(){
     const getRegister = async function(context) {
         context.loggedIn = globalConstants.IsLoggedIn();
 
-        context.currencies = await currencyService.getCurrencies().then(currencies => currencies.json());
-    
+        let currencies = await currencyService.getCurrencies().then(currencies => currencies.json());
+        
+        context.currencies = currencies.sort((a, b) => {
+            if(a.Code >= b.Code){
+                return 1;
+            }
+
+            return -1;
+        })
+
         context.loadPartials({
             header: './views/common/header.hbs',
             footer: './views/common/footer.hbs'
